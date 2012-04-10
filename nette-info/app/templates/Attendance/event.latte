@@ -1,0 +1,73 @@
+{block content}
+<h1>Účast k události</h1>
+
+<h2>Událost</h2>
+
+{* TODO: make a component *}
+<table>
+	<tr>
+		<th>Datum</th>
+		<td>
+		{$event->date_start|date:'j.n.Y H:i'}
+		{ifset $event->date_end}
+			až {$event->date_end|date:'j.n.Y H:i'}
+		{/ifset}
+		</td>
+	</tr>
+	<tr>
+		<th>Místo</th>
+		<td>{$event->place}</td>
+	</tr>
+	<tr>
+		<th>Popis</th>
+		<td>{$event->description}</td>
+	</tr>
+</table>
+
+<div>
+	Navigace:
+	<a n:href="Event:details $event->id">detaily akce</a> | 
+	<a n:href="default">seznam událostí s účastí</a>
+</div>
+
+<h2>Účast</h2>
+
+<p>Lidé, kteří se zůčastní této akce (aktivní členové a hosté).</p>
+
+<table>
+	<tbody>
+	<tr><td>Účastní se</td><td>{$attendanceCounts['yes']}</td></tr>
+	<tr><td>Neúčastní se</td><td>{$attendanceCounts['no']}</td></tr>
+	<tr><td>Ostatní, co nepotvrdili nic</td><td>{$attendanceCounts['other']}</td></tr>
+	<tr><td>Celkem (včetně hostů)</td><td>{$attendanceCounts['total']}</td></tr>
+	</tbody>
+</table>
+
+{foreach $members as $member}
+{first}<table>
+	<thead>
+		<tr>
+			<th>Jméno</th>
+			<th>Účast</th>
+			<th>Poznámka</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+{/first}
+	<tr>
+		<td>{$member->first_name} {$member->last_name}</td>
+		<td>{if ($member->attend !== NULL)}{$member->attend ? 'ano' : 'ne'}{/if}</td>
+		<td>{$member->attend_note}</td>
+		<td>
+			{if $member->attendance_id}
+			<a n:href="Attendance:edit $member->attendance_id">upravit</a>
+			{else}
+			<a n:href="Attendance:create eventId => $event->id, memberId => $member->id">vyplnit</a>
+			{/if}
+		</td>
+	</tr>
+{last}</tbody></table>{/last}
+{/foreach}
+
+{/block}

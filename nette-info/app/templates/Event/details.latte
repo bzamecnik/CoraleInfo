@@ -1,0 +1,56 @@
+{var $title = 'Detail události'}
+
+{block content}
+
+<h1>Detail události</h1>
+
+{* TODO: make a component to share this with Attendance:event, Attendance:edit *}
+<table>
+	<tr>
+		<th>Datum</th>
+		<td>
+		{$event->date_start|date:'j.n.Y H:i'}
+		{ifset $event->date_end}
+			až {$event->date_end|date:'j.n.Y H:i'}
+		{/ifset}
+		</td>
+	</tr>
+	<tr>
+		<th>Místo</th>
+		<td>{$event->place}</td>
+	</tr>
+	<tr>
+		<th>Popis</th>
+		<td>{$event->description}</td>
+	</tr>
+	<tr>
+		<th>Účast</th>
+		<td>
+		{if $event->attendance_active}
+		<a n:href="Attendance:event $event->id">účast lze vyplnit</a>
+		{else}
+		účast nelze vyplnit
+		{/if}
+		</td>
+	</tr>
+</table>
+
+
+{if $user->isLoggedIn()}
+<div>
+	Oprerace:
+	<a n:href="Event:edit $event->id">upravit</a>,
+	<a n:href="Event:delete $event->id">smazat</a>,
+</div>
+{/if}
+
+<div>
+	Navigace:
+	<a n:href="Event:">seznam událostí</a>
+</div>
+		
+{/block}
+
+{block sidebar}
+{include 'sidebar.latte'}
+{/block}

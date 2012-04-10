@@ -1,0 +1,24 @@
+{var $title = 'Info'}
+
+{block content}
+
+<h1>Corale &ndash; info</h1>
+
+<p>Sada nástrojů užitečná jak pro veřejnost, tak i pro členy sboru.</p>
+
+<h2>Události &ndash; koncerty a zkoušky</h2>
+
+<ul>
+	<li><a n:href="Event:">Aktuální události (koncerty i zkoušky)</a></li>
+	<li><a n:href="Event: type=>'concert'">Aktuální koncerty</a></li>
+	<li><a n:href="Event: type=>'rehearsal'">Aktuální zkoušky</a></li>
+	<li><a n:href="Event:archive year=>date('Y')">Archiv událostí</a></li>
+</ul>
+
+<h2>Lidé v Corálích</h2>
+
+<ul>
+	<li><a n:href="Member:">Aktuální členové</a></li>
+</ul>
+
+{/block}

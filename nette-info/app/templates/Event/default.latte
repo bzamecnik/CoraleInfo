@@ -1,0 +1,24 @@
+{var $title = 'Přehled událostí'}
+
+{block content}
+
+<h1>Aktuální události</h1>
+
+<div class="flash info">
+Tato stránka nahrazuje stránky
+<a href="http://corale.gyzamb.cz/wiki/koncerty">koncerty</a> a
+<a href="http://corale.gyzamb.cz/wiki/zkousky">zkoušky</a> na
+<a href="http://corale.gyzamb.cz/wiki">wiki</a>.
+</div>
+
+{if $user->isLoggedIn()}
+<div><a n:href="create">Vytvořit novou událost</a><div>
+{/if}
+
+{include 'eventlists.latte'}
+
+{/block}
+
+{block sidebar}
+{include 'sidebar.latte'}
+{/block}

@@ -1,0 +1,16 @@
+<h2>Lidé v Corálích</h2>
+
+<ul>
+	<li><a n:href="list active => 1, guest => 0">Aktivní členové</a></li>
+	<li><a n:href="list active => 0, guest => 0">Bývalí členové</a></li>
+	<li><a n:href="list active => null, guest => 1">Hosté</a></li>
+	<li><a n:href="list active => null, guest => null">Všichni</a></li>
+</ul>
+
+<h3>Operace</h3>
+
+<ul>
+{if $user->isLoggedIn()}
+	<li><a n:href="create">Přidat osobu</a></li>
+{/if}
+</ul>

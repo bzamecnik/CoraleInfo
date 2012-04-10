@@ -1,0 +1,13 @@
+{var $title = 'Archiv událostí'}
+
+{block content}
+
+<h1>Archiv událostí {ifset $year}&ndash; {$year}{/ifset}</h1>
+
+{include 'eventlists.latte'}
+
+{/block}
+
+{block sidebar}
+{include 'sidebar.latte'}
+{/block}

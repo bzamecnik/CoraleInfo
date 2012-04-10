@@ -1,0 +1,38 @@
+{snippet}
+{if isset($events) and count($events) > 0}
+<table class="events">
+	<thead>
+	<tr>
+		<th class="date_start">Kdy</th>
+		<th class="place">Kde</th>
+		<th class="description">Co</th>
+		<th class="action">&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+	{foreach $events as $event}
+	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hidden">
+		<td class="date_start">
+		{* TODO: use czech locale and '%a %d.%m.%Y %H:%M' *}
+		{$event->date_start|date:'j.n.Y H:i'}
+		{ifset $event->date_end} &ndash; {$event->date_end|date:'j.n.Y H:i'}{/ifset}
+		</td>
+		<td class="place">{$event->place}</td>
+		<td class="description">{$event->description}</td>
+		<td class="action">
+			<a href="{plink Event:details $event->id}">detaily</a>
+			{if $user->isLoggedIn()}
+			<a href="{plink Event:edit $event->id}">upravit</a>
+			{/if}
+			{if $event->attendance_active}
+			<a href="{plink Attendance:event $event->id}">účast</a>
+			{/if}
+		</td>
+	</tr>
+	{/foreach}
+	</tbody>
+</table>
+{else}
+<p>Žádné události.</p>
+{/if}
+{/snippet}

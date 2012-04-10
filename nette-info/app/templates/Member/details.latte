@@ -1,0 +1,52 @@
+{var $title = 'Detail události'}
+
+{block content}
+
+<h1>Člen Corálí</h1>
+
+<table>
+	<tr>
+		<th>Jméno</th>
+		<td>{$member->first_name} {$member->last_name}</td>
+	</tr>
+	<tr>
+		<th>Hlas</th>
+		<td>{_}{$member->voice_type}{/_}</td>
+	</tr>
+	<tr>
+		<th>Nástroje</th>
+		<td>{$member->instruments}</td>
+	</tr>
+	{if $user->isLoggedIn()}
+	<tr>
+		<th>E-mail</th>
+		<td><a href="mailto:{$member->email}">{$member->email}</a></td>
+	</tr>
+	<tr>
+		<th>Telefon</th>
+		<td>{$member->phone}</td>
+	</tr>
+	{/if}
+	<tr>
+		<th>Stav</th>
+		<td>
+		{if $member->guest}host{else}{$member->active ? 'aktivní' : 'bývalý'} člen{/if}
+		</td>
+	</tr>
+	<tr>
+		<th>Další informace</th>
+		<td>{$member->description}</td>
+	</tr>
+</table>
+
+<div>
+	{if $user->isLoggedIn()}
+	<a n:href="Member:edit $member->id">upravit</a>,
+	{*<a n:href="Member:delete $member->id">smazat</a>,*}
+	{/if}
+	<a n:href="Member: id => ''">zpět na seznam členů</a>,
+	<a n:href="Member:details id => $member->id - 1">předchozí</a>,
+	<a n:href="Member:details id => $member->id + 1">další</a>
+</div>
+		
+{/block}

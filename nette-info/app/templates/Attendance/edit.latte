@@ -1,0 +1,39 @@
+{block content}
+<h1>Nastavit účast</h1>
+
+<h2>Událost</h2>
+
+{* TODO: make a component *}
+<table>
+	<tr>
+		<th>Typ</th>
+		<td>{$event->type}</td>
+	</tr>
+	<tr>
+		<th>Datum</th>
+		<td>
+		{$event->date_start|date:'j.n.Y H:i'}
+		{ifset $event->date_end}
+			až {$event->date_end|date:'j.n.Y H:i'}
+		{/ifset}
+		</td>
+	</tr>
+	<tr>
+		<th>Místo</th>
+		<td>{$event->place}</td>
+	</tr>
+	<tr>
+		<th>Popis</th>
+		<td>{$event->description}</td>
+	</tr>
+</table>
+
+<h2>Osoba</h2>
+
+<a n:href="Member:details id => $member->id">{$member->first_name} {$member->last_name}</a>
+
+<h2>Účast</h2>
+
+{control attendanceForm}
+
+{/block}

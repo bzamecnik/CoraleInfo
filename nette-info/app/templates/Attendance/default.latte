@@ -1,0 +1,57 @@
+{block content}
+<h1>Účast na akcích</h1>
+
+<div class="flash info">
+Tato stránka ještě není připravena. Zatím použijte starou stránku
+<a href="http://corale.gyzamb.cz/wiki/terminy">termíny</a>.
+</div>
+
+{snippet}
+{if isset($events) and count($events) > 0}
+<table class="events">
+	<thead>
+	<tr>
+		<th class="date_start">Kdy</th>
+		<th class="place">Kde</th>
+		<th class="description">Co</th>
+{*
+		{if $user->isLoggedIn()}
+		<th class="description">Moje účast</th>
+		{/if}
+*}
+		<th class="action">&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+	{foreach $events as $event}
+	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hidden">
+		<td class="date_start">
+		{$event->date_start|date:'j.n.Y H:i'}
+		{ifset $event->date_end} &ndash; {$event->date_end|date:'j.n.Y H:i'}{/ifset}
+		</td>
+		<td class="place">{$event->place}</td>
+		<td class="description">{$event->description}</td>
+{*
+		{if $user->isLoggedIn()}
+		<td class="description">yes/no, popis</td>
+		{/if}
+*}
+		<td class="action">
+{*
+			{if $user->isLoggedIn()}
+			<a href="{plink Attendance:edit}">moje účast</a> |
+			{/if}
+*}
+			<a href="{plink Attendance:event $event->id}">účast lidí</a> |
+			<a href="{plink Event:details $event->id}">detaily</a>
+		</td>
+	</tr>
+	{/foreach}
+	</tbody>
+</table>
+{else}
+<p>Žádné události.</p>
+{/if}
+{/snippet}
+
+{/block}

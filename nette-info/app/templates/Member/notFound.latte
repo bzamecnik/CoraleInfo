@@ -1,0 +1,19 @@
+{status 404}
+
+{var $title = 'Nenalezeno'}
+
+{block content}
+
+<h1>Člen nenalezen</h1>
+
+<p>Litujeme, ale požadovaný člen nebyl nalezen.</p>
+
+<div>
+	<a n:href="Member:">zpět na seznam členů</a>
+</div>
+
+{/block}
+
+{block sidebar}
+{include 'sidebar.latte'}
+{/block}
