@@ -1,9 +1,9 @@
 <div>
 	Filtr:
-	<a n:href="this type=>''">vše</a>
+	<a n:href="this type=>''" class="badge">vše</a>
 	{foreach $types as $key => $value}
 	{first} | {/first}
-	<a n:href="this type=>$key">{$value|lower}</a>{sep} | {/sep}{last}.{/last}
+	<a n:href="this type=>$key" class="badge">{$value|lower}</a>{sep} | {/sep}
 	{/foreach}
 	
 	{if $user->isLoggedIn()}

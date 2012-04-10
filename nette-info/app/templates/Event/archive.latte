@@ -1,13 +1,23 @@
-{var $title = 'Archiv událostí'}
+{var $title = 'Archiv událostí' . (isset($year) ? " za rok $year")}
 
 {block content}
 
-<h1>Archiv událostí {ifset $year}&ndash; {$year}{/ifset}</h1>
+{ifset $years}
+<ul class="nav nav-pills">
+	{foreach $years as $year}
+	<li{ifCurrent archive?year=$year->y} class="active"{/ifCurrent}>
+		<a n:href="archive 'id' => '', 'year' => $year->y, 'type' => $type">{$year->y}</a>
+	</li>
+	{/foreach}
+</ul>
+{/ifset}
 
+{if !empty($year)}
 {include 'eventlists.latte'}
+{/if}
 
 {/block}
 
-{block sidebar}
-{include 'sidebar.latte'}
+{block menu}
+{include 'menu.latte'}
 {/block}

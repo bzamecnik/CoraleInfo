@@ -22,15 +22,15 @@ common:
 				user: %database.user%
 				password: %database.password%
 
-		security:
-			users:
-				corale: rudyvoko
+#		security:
+#			users:
+#				corale: rudyvoko
 				
 
 	services:
 		database: @Nette\Database\Connection
 
-#		authenticator: Authenticator()
+		authenticator: Authenticator()
 
 
 	factories:

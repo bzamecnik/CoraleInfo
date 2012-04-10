@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="span8">
+		<ul class="nav nav-tabs">
+			{*
+			'Aktivní členové' => 'list active => 1, guest => 0',
+			*}
+			{foreach array(
+				'Aktivní členové' => 'default',
+				'Bývalí členové' => 'list?active=0&guest=0',
+				'Hosté' => 'list?active=&guest=1',
+				'Všichni' => 'list?active=&guest=',
+				)
+			as $linkTitle => $link
+			}
+				<li{ifCurrent $link} class="active"{/ifCurrent}><a href="{link $link}">{$linkTitle }</a></li>
+			{/foreach}
+		</ul>
+	</div>
+	<div class="span2">
+		{if $user->isLoggedIn()}
+		<div>
+			<a n:href="create" class="btn btn-success">
+				<i class="icon-plus icon-white"></i>&nbsp;Přidat osobu
+			</a>
+		</div>
+		{/if}
+	</div>
+</div>

@@ -1,1 +1,58 @@
-{include 'commonList.latte'}
+{var $title = 'Lidé ve sboru Corale'}
+
+{block content}
+
+<div class="alert alert-info">
+Tato stránka nahrazuje stránku
+<a href="http://corale.gyzamb.cz/wiki/lide/">lidé</a> na
+<a href="http://corale.gyzamb.cz/wiki/">wiki</a>.
+</div>
+
+{include 'menu.latte'}
+
+{include #list}
+
+{/block}
+
+{block list}
+<h2>{$list_title}</h2>
+
+<p>Počet lidí: <span class="badge badge-info">{count($members)}</span></p>
+
+{if isset($members) and count($members) > 0}
+<table class="table table-striped table-condensed">
+	<thead>
+	<tr>
+		<th class="name"><i class="icon-user"></i>&nbsp;Jméno</th>
+		<th class="voice_type"><i class="icon-music"></i>&nbsp;Hlas</th>
+		<th class="instruments"><i class="icon-star"></i>&nbsp;Nástroje</th>
+		<th class="action"><i class="icon-cog"></i></th>
+	</tr>
+	</thead>
+	<tbody>
+	{foreach $members as $member}
+	<tr n:class="$iterator->isOdd() ? odd : even">
+		<th class="name">
+			<a n:href="Member:details $member->id" title="detaily">
+				{$member->first_name} {$member->last_name}
+			</a>
+		</th>
+		<td class="voice_type">{_}{$member->voice_type}{/_}</td>
+		<td class="instruments">{$member->instruments}</td>
+		<td class="action">
+			<a n:href="Member:details $member->id" class="btn" title="detaily">
+				<i class="icon-search"></i></a>
+			{if $user->isLoggedIn()}
+			<a n:href="Member:edit $member->id" class="btn" title="upravit">
+				<i class="icon-pencil"></i></a>
+			{/if}
+		</td>
+	</tr>
+	{/foreach}
+	</tbody>
+</table>
+{else}
+<p>Nikdo.</p>
+{/if}
+
+{/block}

@@ -1,52 +1,60 @@
-{var $title = 'Detail události'}
+{var $title = "{$member->first_name} {$member->last_name}"}
 
 {block content}
 
-<h1>Člen Corálí</h1>
+<div class="row">
+	<div class="span6 offset2">
+		<table class="table table-striped table-bordered table-condensed">
+			<tr>
+				<th><i class="icon-user"></i>&nbsp;Jméno</th>
+				<td>{$member->first_name} {$member->last_name}</td>
+			</tr>
+			<tr>
+				<th><i class="icon-music"></i>&nbsp;Hlas</th>
+				<td>{_}{$member->voice_type}{/_}</td>
+			</tr>
+			<tr>
+				<th><i class="icon-star"></i>&nbsp;Nástroje</th>
+				<td>{$member->instruments}</td>
+			</tr>
+			{if $user->isLoggedIn()}
+			<tr>
+				<th><i class="icon-envelope"></i>&nbsp;E-mail</th>
+				<td><a href="mailto:{$member->email}">{$member->email}</a></td>
+			</tr>
+			<tr>
+				<th><i class="icon-signal"></i>&nbsp;Telefon</th>
+				<td>{$member->phone}</td>
+			</tr>
+			{/if}
+			<tr>
+				<th><i class="icon-info-sign"></i>&nbsp;Stav</th>
+				<td>
+				{if $member->guest}host{else}{$member->active ? 'aktivní' : 'bývalý'} člen{/if}
+				</td>
+			</tr>
+			<tr>
+				<th><i class="icon-pencil"></i>&nbsp;Další informace</th>
+				<td>{$member->description}</td>
+			</tr>
+		</table>
+	</div>
+</div>
 
-<table>
-	<tr>
-		<th>Jméno</th>
-		<td>{$member->first_name} {$member->last_name}</td>
-	</tr>
-	<tr>
-		<th>Hlas</th>
-		<td>{_}{$member->voice_type}{/_}</td>
-	</tr>
-	<tr>
-		<th>Nástroje</th>
-		<td>{$member->instruments}</td>
-	</tr>
-	{if $user->isLoggedIn()}
-	<tr>
-		<th>E-mail</th>
-		<td><a href="mailto:{$member->email}">{$member->email}</a></td>
-	</tr>
-	<tr>
-		<th>Telefon</th>
-		<td>{$member->phone}</td>
-	</tr>
-	{/if}
-	<tr>
-		<th>Stav</th>
-		<td>
-		{if $member->guest}host{else}{$member->active ? 'aktivní' : 'bývalý'} člen{/if}
-		</td>
-	</tr>
-	<tr>
-		<th>Další informace</th>
-		<td>{$member->description}</td>
-	</tr>
-</table>
-
-<div>
-	{if $user->isLoggedIn()}
-	<a n:href="Member:edit $member->id">upravit</a>,
-	{*<a n:href="Member:delete $member->id">smazat</a>,*}
-	{/if}
-	<a n:href="Member: id => ''">zpět na seznam členů</a>,
-	<a n:href="Member:details id => $member->id - 1">předchozí</a>,
-	<a n:href="Member:details id => $member->id + 1">další</a>
+<div class="row">
+	<div class="span5">
+		<a n:href="Member: id => ''" class="btn">&larr;&nbsp;zpět na seznam členů</a>
+		{if $user->isLoggedIn()}
+		<a n:href="Member:edit $member->id" class="btn">
+			<i class="icon-pencil"></i>&nbsp;upravit
+		</a>
+		{*<a n:href="Member:delete $member->id" class="btn btn-danger">smazat</a>*}
+		{/if}
+	</div>
+	<div class="span2 offset3">
+		<a n:href="Member:details id => $member->id - 1" class="btn">&larr;&nbsp;předchozí</a>
+		<a n:href="Member:details id => $member->id + 1" class="btn">další&nbsp;&rarr;</a>
+	</div>
 </div>
 		
 {/block}

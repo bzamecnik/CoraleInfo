@@ -25,6 +25,8 @@ class EventPresenter extends BasePresenter
 	private $filterType = '';
 	/** @var boolean */
 	private $showHidden = false;
+	/** @var array */
+	private $years;
 
 	public function actionDefault($type, $showHidden) {
 		$this->filterFromNow = true;
@@ -35,7 +37,8 @@ class EventPresenter extends BasePresenter
 	
 	public function actionArchive($year, $type, $showHidden)
 	{
-		$this->filterYear = $year;
+		$this->years = $this->getEventYears();
+		$this->filterYear = !empty($year) ? $year : date('Y');
 		
 		$this->filterType = $type;
 		$this->showHidden = $showHidden;
@@ -89,7 +92,7 @@ class EventPresenter extends BasePresenter
 	}
 	
 	private function pushTaskListTemplateParams() {
-		$this->template->years = $this->getEventYears();
+		$this->template->years = $this->years;
 		$this->template->types = $this->eventTypes;
 		$this->template->type = $this->filterType;
 		$this->template->year = $this->filterYear;

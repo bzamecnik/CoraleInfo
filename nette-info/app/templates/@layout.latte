@@ -1,26 +1,49 @@
+{default $titleSmall = ""}
 {**
  * Corale toolbox.
  *
- * @copyright  Copyright (c) 2012 Bohumír Zámečník
- * @package    MyApplication
+ * @copyright	Copyright (c) 2012 Bohumír Zámečník
+ * @package		MyApplication
  *
- * @param string   $basePath web base path
- * @param string   $robots   tell robots how to index the content of a page (optional)
- * @param array    $flashes  flash messages
+ * @param string	 $basePath web base path
+ * @param string	 $robots	 tell robots how to index the content of a page (optional)
+ * @param array		$flashes	flash messages
  *}
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Corale - info">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
 	<title>{ifset $title}{$title} &ndash; {/ifset}Corale</title>
 
+{*
 	<link rel="stylesheet" href="{$basePath}/css/tasklist.css" type="text/css">
+*}
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
+
+{*
+	<!-- jQuery Lightbox-->
+	<link rel="stylesheet" type="text/css" href="{$basePath}/css/jquery.lightbox-0.5.css" media="screen" />
+*}
+
+	<!-- Twitter Bootstrap -->	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			padding: 60px 0;
+		}
+	</style>
+	<link href="{$basePath}/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script type="text/javascript" src="{$basePath}/js/netteForms.js"></script>
@@ -29,49 +52,50 @@
 </head>
 
 <body>
-	<script> document.body.className+=' js' </script>
 
-	<div id="header">
-		<div id="header-inner">
-			<div class="title"><a n:href="Homepage:">Corale &ndash; info</a></div>
-			
-			<div class="user">
-			{if $user->isLoggedIn()}
-				<span class="icon user">{$user->getIdentity()->name}</span> |
-				<a n:href="signOut!">Odhlásit se</a>
-			{else}
-				<span class="icon user">nepřihlášen(a)</span> |
-				<a n:href="Sign:in">Přihlásit se</a>
-			{/if}
-			</div>
-		</div>
-	</div>
+<div class="container">
 	
-	<div id="container">
-		<div id="sidebar">
-			<h2>Menu</h2>
-			<ul>
-				<li><a n:href="Event:">Události</a></li>
-				<li><a n:href="Member:">Lidé ve sboru</a></li>
-				<li><a n:href="Attendance:">Účast na akcích</a></li>
-			</ul>
+{include 'navbar.latte'}
+	
+	<div class="row">
+		<div class="span10 offset1">
+			{block menu}{/block}
 			
-			{block sidebar}{/block}
-		</div>
-			
-		<div id="content">
+			{ifset $title}
+			<div class="page-header">
+				<h1>{$title}{if $titleSmall} <small>{$titleSmall}</small>{/if}</h1>
+			</div>
+			{/ifset}
+		
 			{snippet flashMessages}
-			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
 			{/snippet}
 			
 			{include #content}
 		</div>
-		
-		<div id="footer">
-			<a href="http://corale.cz/" title="Corale.cz - hlavní stránky">corale.cz</a> |
-			správce: <a href="mailto:bohumir.zamecnik [zavináč] corale.cz">Bohumír Zámečník</a> |
-			používáme: <a href="http://nette.org/">Nette</a>
-		</div>
 	</div>
+		
+	<hr>
+	
+	<footer>
+		<div style="text-align: center">
+			<p>Pro <a href="http://corale.cz/" title="corale.cz - hlavní stránky sboru Corale"
+			class="label">Corale</a> programuje a spravuje
+			<a href="mailto:bohumir.zamecnik [zavináč] corale.cz" class="label"
+			title="Dejte mi vědět, pokud si s něčím nevíte rady, něco nefunguje, nebo máte nápad, jak tu něco vylepšit.">
+			Bohumír Zámečník</a>	hrdě používaje <a href="http://nette.org/"
+			class="label"	title="Díky tomu se to dá programovat dost rychle a příjemně">
+			Nette</a>	<a href="http://twitter.github.com/bootstrap/" class="label"
+			title="Díky tomu je to tu tak hezoučké">Twitter Bootstrap</a>
+			<a href="http://wedos.net/" class="label"
+			title="Věděli jste, že tyto stránky běží ve starém protiatomovém krytu?">
+			WEDOS</a>.</p>
+			<p>Běží to tu už od 8. dubna 2012.<p>
+		</div>
+	</footer>
+
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<script type="text/javascript" src="{$baseUrl}/js/bootstrap-dropdown.js"></script>
+
 </body>
 </html>

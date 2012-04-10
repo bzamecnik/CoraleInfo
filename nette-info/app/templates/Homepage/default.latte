@@ -1,24 +1,26 @@
-{var $title = 'Info'}
+{var $title = 'Informační portál sboru Corale'}
 
 {block content}
 
-<h1>Corale &ndash; info</h1>
-
-<p>Sada nástrojů užitečná jak pro veřejnost, tak i pro členy sboru.</p>
-
-<h2>Události &ndash; koncerty a zkoušky</h2>
-
-<ul>
-	<li><a n:href="Event:">Aktuální události (koncerty i zkoušky)</a></li>
-	<li><a n:href="Event: type=>'concert'">Aktuální koncerty</a></li>
-	<li><a n:href="Event: type=>'rehearsal'">Aktuální zkoušky</a></li>
-	<li><a n:href="Event:archive year=>date('Y')">Archiv událostí</a></li>
-</ul>
-
-<h2>Lidé v Corálích</h2>
-
-<ul>
-	<li><a n:href="Member:">Aktuální členové</a></li>
-</ul>
+<div class="hero-unit">
+  <p>Sada nástrojů a databáze informací užitečná pro veřejnost i pro členy sboru.</p>
+  <p>
+		<a n:href="Event: type=>'concert'" class="btn btn-primary btn-large" title="Kdy a kde zpíváme?">
+			<i class="icon-music icon-white"></i>&nbsp;Aktuální koncerty
+		</a>
+		<a n:href="Event: type=>'rehearsal'" class="btn btn-info btn-large" title="Kdy trénujeme na koncerty?">
+			<i class="icon-time icon-white"></i>&nbsp;Aktuální zkoušky
+		</a>
+		<a n:href="Member:" class="btn btn-success btn-large" title="Kdo jsou Corale?">
+			<i class="icon-user icon-white"></i>&nbsp;Lidé v Corálích
+		</a>
+		<a n:href="Attendance:" class="btn btn-warning btn-large" title="Kdo může dorazit na kterou akci?">
+			<i class="icon-ok icon-white"></i>&nbsp;Účast na akcích
+		</a>
+		<a href="http://corale.cz/" class="btn btn-danger btn-large" title="Hlavní stránka sboru Corale">
+			<i class="icon-ok icon-white"></i>&nbsp;corale.cz
+		</a>
+  </p>
+</div>
 
 {/block}

@@ -1,0 +1,47 @@
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" n:href="Homepage:" title="Úvodní stránka informačního portálu"><i class="icon-info-sign icon-white"></i>Corale</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						{* TODO: class="active" *}
+						<li{ifCurrent Event:*} class="active"{/ifCurrent}>
+							<a n:href="Event:" title="Kdy zpíváme? Koncerty, zkoušky, ..."><i class="icon-time icon-white"></i>&nbsp;Události</a>
+						</li>
+						<li{ifCurrent Member:*} class="active"{/ifCurrent}>
+							<a n:href="Member:" title="Kdo jsou Corale?"><i class="icon-user icon-white"></i>&nbsp;Lidé ve sboru</a>
+						</li>
+						<li{ifCurrent Attendance:*} class="active"{/ifCurrent}>
+							<a n:href="Attendance:" title="Kdo může dorazit na kterou akci?"><i class="icon-ok icon-white"></i>&nbsp;Účast na akcích</a>
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><a href="http://corale.cz/" title="Hlavní stránka sboru Corale">
+							<i class="icon-home icon-white"></i>&nbsp;corale.cz</a>
+						</li>
+						<li class="divider-vertical"></li>
+					{if $user->isLoggedIn()}
+						
+						
+						<li class="dropdown" id="userMenu">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+					      <i class="icon-user icon-white"></i> {$user->getIdentity()->name}
+					      <b class="caret"></b>
+					    </a>
+					    <ul class="dropdown-menu">
+					      <li><a n:href="signOut!">Odhlásit se</a></li>
+					    </ul>
+					  </li>
+					{else}
+						<li><a n:href="Sign:in">Přihlásit se</a></li>
+					{/if}
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>

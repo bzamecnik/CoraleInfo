@@ -101,6 +101,11 @@ class MemberPresenter extends BasePresenter
 		$this->template->member = $this->context->createMembers()->get($this->id);
 	}
 	
+	public function renderEdit()
+	{
+		$this->template->member = $this->context->createMembers()->get($this->id);
+	}
+	
 	protected function createComponentMemberForm()
 	{
 		$form = new Form();
