@@ -1,0 +1,4 @@
+Thumbs.db
+*.log
+nette-info/temp/cache/
+www/
