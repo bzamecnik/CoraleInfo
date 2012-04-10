@@ -4,3 +4,4 @@ nette-info/temp/cache/
 www/
 
 .htaccess
+nette-info/app/config/passwords-*.neon
