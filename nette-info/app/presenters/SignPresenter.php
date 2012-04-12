@@ -59,3 +59,4 @@ class SignPresenter extends BasePresenter
 		$this->redirect('in');
 	}
 }
+?>

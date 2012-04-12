@@ -26,3 +26,4 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		return !empty($str) ? $str : NULL; 
 	}
 }
+?>

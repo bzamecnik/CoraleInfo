@@ -38,3 +38,4 @@ class ErrorPresenter extends BasePresenter
 	}
 
 }
+?>
