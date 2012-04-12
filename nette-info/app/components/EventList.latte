@@ -11,7 +11,7 @@
 	</thead>
 	<tbody>
 	{foreach $events as $event}
-	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hidden">
+	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hiddenEvent">
 		<td class="date_start">
 		{* TODO: use czech locale and '%a %d.%m.%Y %H:%M' *}
 		{$event->date_start|date:'j.n.Y H:i'}
