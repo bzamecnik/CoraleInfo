@@ -65,7 +65,7 @@ class AttendancePresenter extends BasePresenter
 	public function renderDefault() {
 		// TODO: show some default components
 		// - list of current events - visible future attendable
-		//   - my attendance - unfilled, filled
+		//	 - my attendance - unfilled, filled
 		// - probably use renderEvents()
 		
 		$this->events = $this->context->createEvents()
@@ -108,7 +108,11 @@ LEFT JOIN corale_event e ON e.id = a.event_id
 WHERE m.active = 1
 EOQ;
 		$this->members = $this->context->createMembers()->getConnection()->query($query, $id);
-		$this->template->members = $this->members; 
+		$this->template->members = $this->members;
+		$this->template->attendButtonTexts = array('yes'=> 'Ano', 'no'=> 'Ne', 'null'=> '');
+		$this->template->attendActionCaptions = array('yes'=> 'Účastním se', 'no'=> 'Neúčastním se', 'null'=> 'Nevyplněno');
+		$this->template->attendButtonStyles = array('yes'=> 'btn-success', 'no'=> 'btn-danger', 'null'=> '');
+		$this->template->attendIcons = array('yes'=> 'icon-ok', 'no'=> 'icon-remove', 'null'=> 'icon-question-sign');
 		
 		$query = <<<EOQ
 SELECT a.attend as attend, count(attend) as cnt
@@ -140,8 +144,6 @@ EOQ;
 		// - show only future attendable events
 		// - filter by filled attendance by given user - yes/no/null
 		// - group/filter by years (not only future events)
-		
-		
 	}
 
 	public function renderMatrix($eventIds) {
@@ -149,7 +151,33 @@ EOQ;
 		// - columns = events
 		// - rows = users
 		// - $eventIds - a list of events to show
-		//   - NULL = show all future attendable events
+		//	 - NULL = show all future attendable events
+	}
+	
+	protected function editAttendance($eventId, $memberId, $attend = NULL) {
+		if (($eventId === NULL) || ($memberId === NULL)) {
+			throw new BadRequestException;
+		}
+		$values = array('attend' => $attend);
+		// TODO: why $this->id is empty?
+		$key = array('event_id' => $eventId, 'member_id' => $memberId);
+		$attendance = $this->context->createAttendances()->where($key)->fetch();
+		if ($attendance) {
+			$query = $this->context->createAttendances()->where($key)->update($values);
+		} else {
+			$values['event_id'] = $eventId;
+			$values['member_id'] = $memberId;
+			$this->context->createAttendances()->insert($values);
+		}
+	}
+	
+	public function handleSetAttendance($eventId, $memberId, $attend) {
+		$this->editAttendance($eventId, $memberId, $attend);
+		if (!$this->presenter->isAjax()) {
+				$this->presenter->redirect('this');
+		} else {
+				$this->invalidateControl();
+		}	
 	}
 	
 	protected function createComponentAttendanceForm()
@@ -177,14 +205,14 @@ EOQ;
 	{
 		if ($this->id AND !$this->attendance) {
 			// record existence check in case of editing
-    	throw new BadRequestException;
-    }
-    $values = $form->values;
-    $values['event_id'] = $this->eventId;
-    $values['member_id'] = $this->memberId;
+			throw new BadRequestException;
+		}
+		$values = $form->values;
+		$values['event_id'] = $this->eventId;
+		$values['member_id'] = $this->memberId;
 		if ($this->id) {
 			$query = $this->context->createAttendances()
-					->where(array('id' => $this->id));
+				->where(array('id' => $this->id));
 			if (!empty($values['attend']) || !empty($values['note'])) {
 				$query->update($values);
 			} else {
@@ -194,11 +222,7 @@ EOQ;
 			$this->context->createAttendances()->insert($values);
 		}
 		$this->flashMessage('Účast byla nastavena.', 'success');
-		// TODO: redirect back
-		$this->id = null;
-		$this->eventId = null;
-		$this->memberId = null;
-		$this->redirect('default');
+		$this->redirect('event', array('id' => $this->event->id));
 	}
 }
 ?>
