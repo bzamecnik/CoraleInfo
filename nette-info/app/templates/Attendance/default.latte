@@ -26,7 +26,7 @@ Tato stránka nahrazuje starou stránku
 	</thead>
 	<tbody>
 	{foreach $events as $event}
-	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hidden">
+	<tr n:class="$iterator->isOdd() ? odd : even, $event->hidden ? hiddenEvent">
 		<td class="date_start">
 		{$event->date_start|date:'j.n.Y H:i'}
 		{ifset $event->date_end} &ndash; {$event->date_end|date:'j.n.Y H:i'}{/ifset}
