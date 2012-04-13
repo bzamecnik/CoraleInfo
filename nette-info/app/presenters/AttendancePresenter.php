@@ -90,7 +90,13 @@ class AttendancePresenter extends BasePresenter
 	// show attendance for a given event
 	// - list attendace for all active members and guests
 	public function renderEvent($id) {
-		$this->template->event = $this->context->createEvents()->get($id);
+		$this->event = $this->context->createEvents()->get($id);
+		$this->template->event = $this->event;
+
+		if (($this->event === FALSE) || !$this->event->attendance_active) {
+			$this->setView('notFound');
+			return;
+		}
 
 		// TODO: rewrite to the NotORM notation if possible 
 		$query = <<<EOQ
