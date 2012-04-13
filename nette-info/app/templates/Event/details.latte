@@ -32,9 +32,34 @@
 	</a>
 {if $user->isLoggedIn()}
 	<a n:href="Event:edit $event->id" class="btn"><i class="icon-pencil"></i>&nbsp;upravit</a>
-	<a n:href="Event:delete $event->id" class="btn btn-danger">
+{if !($event->attendance_active)}
+	<a href="#eventDeleteModal" data-toggle="modal" class="btn btn-danger">
 		<i class="icon-trash icon-white"></i>&nbsp;smazat
 	</a>
+	<div class="modal hide" id="eventDeleteModal">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>Smazat událost?</h3>
+		</div>
+		<div class="modal-body">
+			<p>Opravdu chcete smazat tuto událost?</p>
+			<p>{$event->date_start|date:'j.n.Y H:i'}{ifset $event->date_end}
+			až {$event->date_end|date:'j.n.Y H:i'}{/ifset},
+			{$event->place}</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Zpět</a>
+			<a n:href="Event:delete $event->id" class="btn btn-danger">
+				<i class="icon-trash icon-white"></i>&nbsp;Smazat!
+			</a>
+		</div>
+	</div>
+{else}
+	<a href="#" class="btn btn-danger disabled"
+	title="Událost nelze smazat, protože je k ní aktivní vyplňování účasti.">
+		<i class="icon-trash icon-white"></i>&nbsp;smazat
+	</a>
+{/if}
 {/if}
 </div>
 
