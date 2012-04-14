@@ -2,8 +2,6 @@
 use Nette\Application\UI,
     Nette\Database\Table\Selection;
 
-use Nette\Diagnostics\Debugger;
-
 class AttendanceButton extends UI\Control
 {
 	public function __construct()
@@ -29,7 +27,6 @@ class AttendanceButton extends UI\Control
 	
 	public function handleSetAttendance($eventId, $memberId, $attend = NULL) {
 		$values = array('attend' => $attend);
-		Debugger::log("eventId: $eventId, memberId: $memberId", Debugger::INFO);
 		$key = array('event_id' => $eventId, 'member_id' => $memberId);
 		$attendance = $this->presenter->context->createAttendances()->where($key)->fetch();
 		if ($attendance) {
@@ -42,7 +39,7 @@ class AttendanceButton extends UI\Control
 		if (!$this->presenter->isAjax()) {
 				$this->presenter->redirect('this');
 		} else {
-				$this->presenter->invalidateControl();
+			$this->presenter->updateAttendanceList($eventId, $memberId);			
 		}
 	}
 }

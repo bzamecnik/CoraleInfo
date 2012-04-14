@@ -98,18 +98,10 @@ class AttendancePresenter extends BasePresenter
 			return;
 		}
 
-		// TODO: rewrite to the NotORM notation if possible 
-		$query = <<<EOQ
-SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
-FROM corale_member m
-LEFT JOIN corale_attendance a
-ON m.id = a.member_id AND a.event_id = ?
-LEFT JOIN corale_event e ON e.id = a.event_id 
-WHERE m.active = 1
-ORDER BY m.last_name, m.first_name
-EOQ;
-		$this->members = $this->context->createMembers()->getConnection()->query($query, $id);
-		$this->template->members = $this->members;
+		// TODO: rewrite to the NotORM notation if possible
+		if (!isset($this->template->members)) {
+			$this->template->members = $this->getAllAttendances($id);
+		}
 		
 		$query = <<<EOQ
 SELECT a.attend as attend, count(attend) as cnt
@@ -134,6 +126,38 @@ EOQ;
 			'other' => $total - ($attendanceCounts['1'] + $attendanceCounts['0']),
 			'total' => $total,
 			);
+	}
+	
+	private function getAllAttendances($eventId) {
+			$query = <<<EOQ
+SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
+FROM corale_member m
+LEFT JOIN corale_attendance a
+ON m.id = a.member_id AND a.event_id = ?
+LEFT JOIN corale_event e ON e.id = a.event_id 
+WHERE m.active = 1
+ORDER BY m.last_name, m.first_name
+EOQ;
+			return $this->context->createMembers()->getConnection()->query($query, $eventId);
+	}
+	
+	public function getAttendance($eventId, $memberId) {
+		$query = <<<EOQ
+SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
+FROM corale_member m
+LEFT JOIN corale_attendance a
+ON m.id = a.member_id AND a.event_id = ? 
+LEFT JOIN corale_event e ON e.id = a.event_id 
+WHERE m.active = 1 AND a.member_id = ?
+EOQ;
+			return $this->context->createMembers()->getConnection()->query($query, $eventId, $memberId);
+	}
+	
+	public function updateAttendanceList($eventId, $memberId) {
+			$this->template->members = $this->presenter->isAjax()
+				? $this->getAttendance($eventId, $memberId)
+				: $this->getAllAttendances($eventId);
+			$this->invalidateControl('attendanceList');
 	}
 
 	public function renderEvents() {
