@@ -1,0 +1,19 @@
+{define #buttonItem}
+		<li><a class="ajax" href="{link setAttendance! 'eventId' => $eventId, 'memberId' => $memberId, 'attend' => $attendValue}">
+			<i class="{$attendIcons[$attendIcon]}"></i>&nbsp;{$text}</a>
+		</li>
+{/define}
+
+<div class="btn-group">
+  <button class="btn dropdown-toggle {$attendButtonStyles[$attendText]}" data-toggle="dropdown">
+		<i class="{($attend !== NULL) ? icon-white} {$attendIcons[$attendText]}">
+		</i>&nbsp;{$attendButtonTexts[$attendText]}
+		<span class="caret"></span>
+	</button>
+  <ul class="dropdown-menu">
+  	{include #buttonItem, text => 'Účastním se', attendValue => 1, attendIcon => 'yes'}
+  	{include #buttonItem, text => 'Neúčastním se', attendValue => 0, attendIcon => 'no'}
+    <li class="divider"></li>
+    {include #buttonItem, text => 'Nevyplněno', attendValue => null, attendIcon => 'null'}
+  </ul>
+</div>

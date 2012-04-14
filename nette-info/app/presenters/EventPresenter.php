@@ -14,7 +14,7 @@ class EventPresenter extends BasePresenter
 		);
 	
 	/** @persistent int */
-  public $id;
+	public $id;
 	/** @var Events */
 	private $event;
 	/** @var boolean */
@@ -183,12 +183,12 @@ class EventPresenter extends BasePresenter
 		$this->ensureLoggedUser();
 		if ($this->id AND !$this->event) {
 			// record existence check in case of editing
-    	throw new BadRequestException;
-    }
+			throw new BadRequestException;
+		}
 		$values = $form->values;
 		foreach (array('date_start', 'date_end', 'place', 'description')	as $field) {
-    	$values[$field] = $this->nullizeEmptyString($values[$field]);
-    }
+			$values[$field] = $this->nullizeEmptyString($values[$field]);
+		}
 		if ($this->id) {
 			$this->context->createEvents()
 				->where(array('id' => $this->id))

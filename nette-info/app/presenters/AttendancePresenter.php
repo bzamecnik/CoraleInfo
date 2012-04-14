@@ -100,7 +100,7 @@ class AttendancePresenter extends BasePresenter
 
 		// TODO: rewrite to the NotORM notation if possible 
 		$query = <<<EOQ
-SELECT m.id id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
+SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
 FROM corale_member m
 LEFT JOIN corale_attendance a
 ON m.id = a.member_id AND a.event_id = ?
@@ -109,10 +109,6 @@ WHERE m.active = 1
 EOQ;
 		$this->members = $this->context->createMembers()->getConnection()->query($query, $id);
 		$this->template->members = $this->members;
-		$this->template->attendButtonTexts = array('yes'=> 'Ano', 'no'=> 'Ne', 'null'=> '');
-		$this->template->attendActionCaptions = array('yes'=> 'Účastním se', 'no'=> 'Neúčastním se', 'null'=> 'Nevyplněno');
-		$this->template->attendButtonStyles = array('yes'=> 'btn-success', 'no'=> 'btn-danger', 'null'=> '');
-		$this->template->attendIcons = array('yes'=> 'icon-ok', 'no'=> 'icon-remove', 'null'=> 'icon-question-sign');
 		
 		$query = <<<EOQ
 SELECT a.attend as attend, count(attend) as cnt
@@ -154,32 +150,6 @@ EOQ;
 		//	 - NULL = show all future attendable events
 	}
 	
-	protected function editAttendance($eventId, $memberId, $attend = NULL) {
-		if (($eventId === NULL) || ($memberId === NULL)) {
-			throw new BadRequestException;
-		}
-		$values = array('attend' => $attend);
-		// TODO: why $this->id is empty?
-		$key = array('event_id' => $eventId, 'member_id' => $memberId);
-		$attendance = $this->context->createAttendances()->where($key)->fetch();
-		if ($attendance) {
-			$query = $this->context->createAttendances()->where($key)->update($values);
-		} else {
-			$values['event_id'] = $eventId;
-			$values['member_id'] = $memberId;
-			$this->context->createAttendances()->insert($values);
-		}
-	}
-	
-	public function handleSetAttendance($eventId, $memberId, $attend) {
-		$this->editAttendance($eventId, $memberId, $attend);
-		if (!$this->presenter->isAjax()) {
-				$this->presenter->redirect('this');
-		} else {
-				$this->invalidateControl();
-		}	
-	}
-	
 	protected function createComponentAttendanceForm()
 	{
 		$form = new Form();
@@ -200,6 +170,12 @@ EOQ;
 			};
 		return $form;
 	}
+	
+	public function createComponentAttendanceButton()
+	{
+		return new AttendanceButton();
+	}
+
 	
 	public function processAttendanceForm(Form $form)
 	{
