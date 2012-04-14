@@ -106,6 +106,7 @@ LEFT JOIN corale_attendance a
 ON m.id = a.member_id AND a.event_id = ?
 LEFT JOIN corale_event e ON e.id = a.event_id 
 WHERE m.active = 1
+ORDER BY m.last_name, m.first_name
 EOQ;
 		$this->members = $this->context->createMembers()->getConnection()->query($query, $id);
 		$this->template->members = $this->members;
