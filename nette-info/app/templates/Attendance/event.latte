@@ -84,7 +84,7 @@
 		<th>{$memberAtt->first_name} {$memberAtt->last_name}</th>
 		<td>
 			{snippet attendanceButton-$event->id-$memberAtt->member_id}
-			{control attendanceButton, $event->id, $memberAtt->member_id}
+			{control attendanceButton, $event->id, $memberAtt->member_id, $memberAtt->attend}
 			{/snippet}
 		</td>
 		<td>{$memberAtt->attend_note}</td>

@@ -11,16 +11,11 @@ class AttendanceButton extends UI\Control
 		parent::__construct();
 	}
 
-	public function render($eventId, $memberId)
+	public function render($eventId, $memberId, $attend)
 	{
-		$attendance = $this->presenter->context->createAttendances()
-			->where(array('event_id' => $eventId, 'member_id' => $memberId))->fetch();
-	
 		$this->template->setFile(__DIR__ . '/AttendanceButton.latte');
-		$this->template->attendance = $attendance;
 		$this->template->eventId = $eventId;
 		$this->template->memberId = $memberId;
-		$attend = ($attendance !== FALSE) ? $attendance->attend : null;
 		$this->template->attend = $attend;
 		$this->template->attendText = ($attend !== NULL) ? ($attend ? 'yes' : 'no') : 'null';
 		
