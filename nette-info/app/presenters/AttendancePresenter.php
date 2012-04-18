@@ -62,6 +62,11 @@ class AttendancePresenter extends BasePresenter
 		$this["attendanceForm"]->setDefaults($this->attendance);
 	}
 
+	public function beforeRender()
+	{
+		$this->template->setTranslator(new MemberTranslator);
+	}
+
 	public function renderDefault() {
 		// TODO: show some default components
 		// - list of current events - visible future attendable
@@ -99,8 +104,8 @@ class AttendancePresenter extends BasePresenter
 		}
 
 		// TODO: rewrite to the NotORM notation if possible
-		if (!isset($this->template->members)) {
-			$this->template->members = $this->getAllAttendances($id);
+		if (!isset($this->template->membersGroupedByVoice)) {
+			$this->template->membersGroupedByVoice = $this->getAllAttendancesGroupedByVoice($id);
 		}
 		
 		$query = <<<EOQ
@@ -116,7 +121,7 @@ EOQ;
 		if (!isset($attendanceCounts['0'])) {
 			$attendanceCounts['0'] = 0;
 		}
-		if (!$attendanceCounts['1']) {
+		if (!isset($attendanceCounts['1'])) {
 			$attendanceCounts['1'] = 0;
 		}
 		$total = $this->context->createMembers()->where('active', true)->count();
@@ -128,18 +133,28 @@ EOQ;
 			);
 	}
 	
-	private function getAllAttendances($eventId) {
+	private function getAttendancesByVoice($eventId, $voiceTypeSql) {
 			$query = <<<EOQ
-SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
+SELECT m.id member_id, m.first_name, m.last_name, m.voice_type, a.id attendance_id, a.attend, a.note attend_note
 FROM corale_member m
 LEFT JOIN corale_attendance a
 ON m.id = a.member_id AND a.event_id = ?
 LEFT JOIN corale_event e ON e.id = a.event_id 
-WHERE m.active = 1
+WHERE m.active = 1 AND $voiceTypeSql 
 ORDER BY m.last_name, m.first_name
 EOQ;
 			return $this->context->createMembers()->getConnection()->query($query, $eventId);
 	}
+	
+	private function getAllAttendancesGroupedByVoice($eventId) {
+		$voiceTypes = array(VoiceType::TYPE_SOPRANO, VoiceType::TYPE_ALTO, VoiceType::TYPE_TENOR, VoiceType::TYPE_BASS);
+		$results = array();
+		foreach($voiceTypes as $type) {
+			$results[$type] = $this->getAttendancesByVoice($eventId, "m.voice_type = '$type'");
+		}
+		$results['other'] = $this->getAttendancesByVoice($eventId, "(m.voice_type = '' OR m.voice_type IS NULL)");
+		return $results;
+	}		
 	
 	public function getAttendance($eventId, $memberId) {
 		$query = <<<EOQ
@@ -154,9 +169,9 @@ EOQ;
 	}
 	
 	public function updateAttendanceList($eventId, $memberId) {
-			$this->template->members = $this->presenter->isAjax()
+			$this->template->membersGroupedByVoice = $this->presenter->isAjax()
 				? $this->getAttendance($eventId, $memberId)
-				: $this->getAllAttendances($eventId);
+				: $this->getAllAttendancesGroupedByVoice($eventId);
 			$this->invalidateControl('attendanceList');
 	}
 

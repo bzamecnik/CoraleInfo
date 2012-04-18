@@ -68,7 +68,7 @@
 	<div class="span8 offset1">
 
 {snippet attendanceList}
-{foreach $members as $memberAtt}
+{foreach $membersGroupedByVoice as $voiceType => $memberByVoice}
 {first}<table class="table table-striped table-condensed">
 	<thead>
 		<tr>
@@ -80,8 +80,10 @@
 	</thead>
 	<tbody>
 {/first}
+	<tr><th colspan="5"><i class="icon-music"></i>&nbsp;<span class="badge badge-success">{_}{$voiceType}{/_}</a></th></tr>
+	{foreach $memberByVoice as $memberAtt}
 	<tr>
-		<th>{$memberAtt->first_name} {$memberAtt->last_name}</th>
+		<td>{$memberAtt->first_name} {$memberAtt->last_name}</td>
 		<td>
 			{snippet attendanceButton-$event->id-$memberAtt->member_id}
 			{control attendanceButton, $event->id, $memberAtt->member_id, $memberAtt->attend}
@@ -97,6 +99,7 @@
 			<i class="icon-pencil icon-white"></i></a>
 		</td>
 	</tr>
+	{/foreach}
 {last}</tbody></table>{/last}
 {/foreach}
 {/snippet}

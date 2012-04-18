@@ -174,6 +174,7 @@ class MemberTranslator implements Nette\Localization\ITranslator
 		VoiceType::TYPE_ALTO => 'alt',
 		VoiceType::TYPE_TENOR => 'tenor',
 		VoiceType::TYPE_BASS => 'bas',
+		'other' => 'ostatní',
 		);
 	private $messages;
 	
