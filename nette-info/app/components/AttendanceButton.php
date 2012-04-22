@@ -36,10 +36,11 @@ class AttendanceButton extends UI\Control
 			$values['member_id'] = $memberId;
 			$this->presenter->context->createAttendances()->insert($values);
 		}
+		$this->presenter->flashMessage('Účast byla upravena.', 'success');
 		if (!$this->presenter->isAjax()) {
 				$this->presenter->redirect('this');
 		} else {
-			$this->presenter->updateAttendanceList($eventId, $memberId);			
+			$this->presenter->updateAttendanceList($eventId, $memberId);
 		}
 	}
 }

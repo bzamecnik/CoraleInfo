@@ -237,7 +237,7 @@ EOQ;
 		} else {
 			$this->context->createAttendances()->insert($values);
 		}
-		$this->flashMessage('Účast byla nastavena.', 'success');
+		$this->presenter->flashMessage('Účast byla nastavena.', 'success');
 		$this->redirect('event', array('id' => $this->event->id));
 	}
 }
