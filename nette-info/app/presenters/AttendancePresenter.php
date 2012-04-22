@@ -158,14 +158,14 @@ EOQ;
 	
 	public function getAttendance($eventId, $memberId) {
 		$query = <<<EOQ
-SELECT m.id member_id, m.first_name, m.last_name, a.id attendance_id, a.attend, a.note attend_note
+SELECT m.id member_id, m.first_name, m.last_name, m.voice_type, a.id attendance_id, a.attend, a.note attend_note
 FROM corale_member m
 LEFT JOIN corale_attendance a
 ON m.id = a.member_id AND a.event_id = ? 
 LEFT JOIN corale_event e ON e.id = a.event_id 
 WHERE m.active = 1 AND a.member_id = ?
 EOQ;
-			return $this->context->createMembers()->getConnection()->query($query, $eventId, $memberId);
+			return array('other' => $this->context->createMembers()->getConnection()->query($query, $eventId, $memberId));
 	}
 	
 	public function updateAttendanceList($eventId, $memberId) {
@@ -215,7 +215,6 @@ EOQ;
 	{
 		return new AttendanceButton();
 	}
-
 	
 	public function processAttendanceForm(Form $form)
 	{
