@@ -3,11 +3,24 @@
 /**
  * Base class for all application presenters.
  *
- * @author     John Doe
- * @package    MyApplication
+ * @author John Doe
+ * @package MyApplication
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+	public function startup() {
+		parent::startup();
+	
+		Nette\Forms\Container::extensionMethod('addDateTimePicker',
+			function (Nette\Forms\Container $container, $name, $label = NULL) {
+				return $container[$name] = new Extras\Forms\DateTimePicker($label);
+			});
+
+		Nette\Forms\Container::extensionMethod('addDatePicker',
+			function (Nette\Forms\Container $container, $name, $label = NULL) {
+				return $container[$name] =  new JanTvrdik\Components\DatePicker($label);
+			});
+	}
 
 	protected function afterRender() {
 		if ($this->isAjax()) {
