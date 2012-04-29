@@ -1,8 +1,4 @@
 Thumbs.db
 *.log
-nette-info/temp/cache/
-nette-info/app/config/passwords-*.neon
-www/wordpress/
-www/wiki/
-www/test/
-www/index.php
+nette/temp/cache/
+nette/app/config/passwords-*.neon
