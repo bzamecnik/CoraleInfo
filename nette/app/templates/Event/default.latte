@@ -14,10 +14,7 @@ Tato stránka nahrazuje stránky
 		<p>Přehled plánovaných událostí od nynějška do budoucnosti.</p>
 	</div>
 	<div class="span2">
-		{if $user->isLoggedIn()}
-		<p><a n:href="create" class="btn btn-success">
-			<i class="icon-plus icon-white"></i>&nbsp;Vytvořit novou událost</a><p>
-		{/if}
+		{include createEventButton.latte}
 	</div>
 </div>
 

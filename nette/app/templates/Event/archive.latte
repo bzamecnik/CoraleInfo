@@ -2,15 +2,22 @@
 
 {block content}
 
-{ifset $years}
-<ul class="nav nav-pills">
-	{foreach $years as $year}
-	<li{ifCurrent archive?year=$year->y} class="active"{/ifCurrent}>
-		<a n:href="archive 'id' => '', 'year' => $year->y, 'type' => $type">{$year->y}</a>
-	</li>
-	{/foreach}
-</ul>
-{/ifset}
+<div class="row">
+	<div class="span8">
+		{ifset $years}
+		<ul class="nav nav-pills">
+			{foreach $years as $year}
+			<li{ifCurrent archive?year=$year->y} class="active"{/ifCurrent}>
+				<a n:href="archive 'id' => '', 'year' => $year->y, 'type' => $type">{$year->y}</a>
+			</li>
+			{/foreach}
+		</ul>
+		{/ifset}
+	</div>
+	<div class="span2">
+		{include createEventButton.latte}
+	</div>
+</div>
 
 {if !empty($year)}
 {include 'eventlists.latte'}
