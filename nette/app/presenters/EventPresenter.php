@@ -14,7 +14,7 @@ class EventPresenter extends BasePresenter
 		);
 	
 	/** @persistent int */
-  public $id;
+	public $id;
 	/** @var Events */
 	private $event;
 	/** @var boolean */
@@ -152,7 +152,8 @@ class EventPresenter extends BasePresenter
 		$form->addSelect('type', 'Typ', $this->eventTypes)
 			->setPrompt('- Vyberte -')
 			->addRule(Form::FILLED, 'Je nutné vybrat typ události.');
-		$form->addDateTimePicker('date_start', 'Datum a čas (od)');
+		$form->addDateTimePicker('date_start', 'Datum a čas (od)')
+			->addRule(Form::FILLED, 'Je nutné zadat počáteční datum.');
 		$form->addDateTimePicker('date_end', 'Datum a čas (do)');
 		$form->addText('place', 'Místo');
 		$form->addTextArea('description', 'Popis');
@@ -177,18 +178,18 @@ class EventPresenter extends BasePresenter
 			};		
 		return $form;
 	}
-		
+
 	public function processEventForm(Form $form)
 	{
 		$this->ensureLoggedUser();
 		if ($this->id AND !$this->event) {
 			// record existence check in case of editing
-    	throw new BadRequestException;
-    }
+			throw new BadRequestException;
+		}
 		$values = $form->values;
-		foreach (array('date_start', 'date_end', 'place', 'description')	as $field) {
-    	$values[$field] = $this->nullizeEmptyString($values[$field]);
-    }
+		foreach (array('date_start', 'date_end', 'place', 'description') as $field) {
+			$values[$field] = $this->nullizeEmptyString($values[$field]);
+		}
 		if ($this->id) {
 			$this->context->createEvents()
 				->where(array('id' => $this->id))
