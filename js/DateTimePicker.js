@@ -34,6 +34,9 @@ $(document).ready(function () {
 			timeFormat: 'hh:mm',
 			minDate: minDate,
 			maxDate: maxDate,
+			showOn: "button",
+			buttonImage: "images/calendar.png",
+			buttonImageOnly: true
 		});
 	});
 });
