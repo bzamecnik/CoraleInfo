@@ -25,7 +25,7 @@
 </table>
 
 <div>
-	<a n:href="Event:" class="btn">&larr;&nbsp;seznam událostí</a>
+	<a n:href="Event:" class="btn">&larr;&nbsp;Seznam událostí</a>
 	<a {if $event->attendance_active}href="{link Attendance:event $event->id}"{/if}
 		class="btn {(!$event->attendance_active) ? 'disabled' : 'btn-info'}">
 		<i class="icon-check {$event->attendance_active ? icon-white}"></i>&nbsp;Vyplnit účast

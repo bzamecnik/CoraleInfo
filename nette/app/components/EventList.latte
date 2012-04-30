@@ -20,11 +20,11 @@
 		<td class="place">{$event->place}</td>
 		<td class="description">{$event->description}</td>
 		<td class="action">
-			<a href="{plink Event:details $event->id}" class="btn" title="detaily">
+			<a href="{plink Event:details $event->id}" class="btn" title="Detaily">
 				<i class="icon-search"></i>
 			</a>
 			{if $user->isLoggedIn()}
-			<a href="{plink Event:edit $event->id}" class="btn" title="upravit">
+			<a href="{plink Event:edit $event->id}" class="btn" title="Upravit">
 				<i class="icon-pencil"></i>
 			</a>
 			{/if}
