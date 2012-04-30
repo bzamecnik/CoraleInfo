@@ -73,9 +73,9 @@
 	<thead>
 		<tr>
 			<th><i class="icon-user"></i>&nbsp;Jméno</th>
-			<th><i class="icon-time"></i>&nbsp;Účast</th>
+			<th><i class="icon-check"></i>&nbsp;Účast</th>
 			<th><i class="icon-pencil"></i>&nbsp;Poznámka</th>
-			<th><i class="icon-check"></i></th>
+			<th><i class="icon-cog"></i></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -92,11 +92,11 @@
 		<td>{$memberAtt->attend_note}</td>
 		<td>
 			
-			<a class="btn btn-info" href="{if $memberAtt->attendance_id}
+			<a class="btn" href="{if $memberAtt->attendance_id}
 				{plink Attendance:edit $memberAtt->attendance_id}{else}
 				{plink Attendance:create eventId => $event->id, memberId => $memberAtt->member_id}
-				{/if}" title="upravit">
-			<i class="icon-pencil icon-white"></i></a>
+				{/if}" title="Upravit">
+			<i class="icon-pencil"></i></a>
 		</td>
 	</tr>
 	{/foreach}

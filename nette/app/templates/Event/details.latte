@@ -28,7 +28,7 @@
 	<a n:href="Event:" class="btn">&larr;&nbsp;seznam událostí</a>
 	<a {if $event->attendance_active}href="{link Attendance:event $event->id}"{/if}
 		class="btn {(!$event->attendance_active) ? 'disabled' : 'btn-info'}">
-		<i class="icon-time {$event->attendance_active ? icon-white}"></i>&nbsp;vyplnit účast
+		<i class="icon-check {$event->attendance_active ? icon-white}"></i>&nbsp;Vyplnit účast
 	</a>
 {if $user->isLoggedIn()}
 	<a n:href="Event:edit $event->id" class="btn"><i class="icon-pencil"></i>&nbsp;upravit</a>
