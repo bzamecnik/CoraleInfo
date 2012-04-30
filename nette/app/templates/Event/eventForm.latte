@@ -1,0 +1,69 @@
+{form eventForm}
+<div class="form-horizontal">
+	<fieldset>
+		<legend>Událost</legend>
+		
+		{control $form errors}
+
+		<div class="control-group">
+		  {label type class=>"control-label" /}
+		  <div class="controls">
+			{input type autofocus => true}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label date_start class=>"control-label" /}
+		  <div class="controls">
+			{input date_start}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label date_end class=>"control-label" /}
+		  <div class="controls">
+			{input date_end}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label place class=>"control-label" /}
+		  <div class="controls">
+			{input place class => 'span5'}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label description class=>"control-label" /}
+		  <div class="controls">
+			{input description class => 'span5'}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label hidden class=>"control-label" /}
+		  <div class="controls">
+			{input hidden}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label attendance_active class=>"control-label" /}
+		  <div class="controls">
+			{input attendance_active}
+		  </div>
+		</div>
+		
+		 <div class="form-actions">
+			{input save class=>"btn btn-primary"}
+			{input cancel class=>"btn"}
+			<div class="pull-right">
+				{ifset $event}
+					{include deleteEventButton.latte}
+				{/ifset}
+			</div>
+          </div>
+
+	</fieldset>
+</div>
+{/form}

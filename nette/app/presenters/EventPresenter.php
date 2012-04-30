@@ -91,6 +91,11 @@ class EventPresenter extends BasePresenter
 		$this->pushTaskListTemplateParams();		
 	}
 	
+	public function renderEdit()
+	{
+		$this->template->event = $this->event;
+	}
+	
 	private function pushTaskListTemplateParams() {
 		$this->template->years = $this->years;
 		$this->template->types = $this->eventTypes;
@@ -162,11 +167,7 @@ class EventPresenter extends BasePresenter
 		$form->addCheckbox('attendance_active', 'Zobrazit v účasti')
 			->setDefaultValue(FALSE);
 		
-		if ($this->event) {
-			$form->addSubmit('edit', 'Upravit');
-		} else {
-			$form->addSubmit('create', 'Vytvořit');
-		}
+		$form->addSubmit('save', ($this->event) ? 'Upravit' : 'Vytvořit');
 		$form->onSuccess[] = callback($this, 'processEventForm');
 		
 		$presenter = $this;
