@@ -10,4 +10,3 @@ abstract class SecuredPresenter extends BasePresenter
         }
     }
 }
-?>

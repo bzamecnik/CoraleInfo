@@ -24,4 +24,3 @@ class EventList extends UI\Control
 		$this->template->render();
 	}
 }
-?>

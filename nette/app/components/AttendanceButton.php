@@ -44,4 +44,3 @@ class AttendanceButton extends UI\Control
 		}
 	}
 }
-?>

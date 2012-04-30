@@ -10,5 +10,3 @@ class Attendances extends Selection
 		parent::__construct('corale_attendance', $connection);
 	}
 }
-
-?>

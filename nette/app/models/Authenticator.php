@@ -41,4 +41,3 @@ class Authenticator extends Nette\Object implements NS\IAuthenticator
 		}
 	}
 }
-?>

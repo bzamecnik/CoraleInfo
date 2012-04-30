@@ -240,4 +240,3 @@ EOQ;
 		$this->redirect('event', array('id' => $this->event->id));
 	}
 }
-?>

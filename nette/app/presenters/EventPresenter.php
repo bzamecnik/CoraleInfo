@@ -204,4 +204,3 @@ class EventPresenter extends BasePresenter
 	}
 
 }
-?>

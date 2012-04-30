@@ -193,4 +193,3 @@ class MemberTranslator implements Nette\Localization\ITranslator
 		return isset($this->messages[$message]) ? $this->messages[$message] : $message;
 	}
 }
-?>

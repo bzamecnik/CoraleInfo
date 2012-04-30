@@ -11,4 +11,3 @@ class HomepagePresenter extends BasePresenter
 
 	
 }
-?>

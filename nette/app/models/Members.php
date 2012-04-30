@@ -17,5 +17,3 @@ class VoiceType {
 	const TYPE_TENOR = 'tenor';
 	const TYPE_BASS = 'bass';
 } 
-
-?>

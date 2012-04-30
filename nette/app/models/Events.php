@@ -17,5 +17,3 @@ class Events extends Selection
 		parent::__construct('corale_event', $connection);
 	}
 }
-
-?>
