@@ -39,15 +39,47 @@
 	<div class="span5">
 		<h2>Účast</h2>
 
-		<p>
-			Osoba: <a n:href="Member:details id => $member->id" class="btn">
-				<i class="icon-user"></i>&nbsp;{$member->first_name} {$member->last_name}
-			</a>
-		</p>
-		
-		{control attendanceForm}
+		{include #attendanceForm}
 
 	</div>
 </div>
 
 {/block}
+
+{define attendanceForm}
+{form attendanceForm}
+<div class="form-horizontal">
+	<fieldset>		
+		{control $form errors}
+
+		<div class="control-group">
+			<label class="control-label" for="person">Osoba</label>
+			<div class="controls">
+				<a n:href="Member:details id => $member->id" class="btn">
+					<i class="icon-user"></i>&nbsp;{$member->first_name} {$member->last_name}
+				</a>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label attend class=>"control-label" /}
+			<div class="controls">
+				{input attend}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label note class=>"control-label" /}
+			<div class="controls">
+				{input note}
+			</div>
+		</div>
+		
+		<div class="form-actions">
+			{input edit class=>"btn btn-primary"}
+			{input cancel class=>"btn"}
+		</div>
+	</fieldset>
+</div>
+{/form}
+{/define}

@@ -1,41 +1,67 @@
-{form eventForm}
+{form memberForm}
 <div class="form-horizontal">
-	<fieldset>
-		<legend>Událost</legend>
-		
+	<fieldset>		
 		{control $form errors}
 
 		<div class="control-group">
-			{label type class=>"control-label" /}
+			{label first_name class=>"control-label" /}
 			<div class="controls">
 				<div class="input-prepend">
 					<span class="add-on"><i class="icon-exclamation-sign"></i>
-					</span>{input type autofocus => true}
+					</span>{input first_name autofocus => true}
 				</div>
 			</div>
 		</div>
 		
 		<div class="control-group">
-			{label date_start class=>"control-label" /}
+			{label last_name class=>"control-label" /}
 			<div class="controls">
 				<div class="input-prepend">
 					<span class="add-on"><i class="icon-exclamation-sign"></i>
-					</span>{input date_start}
+					</span>{input last_name}
 				</div>
 			</div>
 		</div>
 		
 		<div class="control-group">
-			{label date_end class=>"control-label" /}
+			{label voice_type class=>"control-label" /}
 			<div class="controls">
-				{input date_end}
+				{input voice_type}
 			</div>
 		</div>
 		
 		<div class="control-group">
-			{label place class=>"control-label" /}
+			{label instruments class=>"control-label" /}
 			<div class="controls">
-				{input place class => 'span5'}
+				{input instruments class => 'span4'}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label email class=>"control-label" /}
+			<div class="controls">
+				{input email}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label phone class=>"control-label" /}
+			<div class="controls">
+				{input phone}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label active class=>"control-label" /}
+			<div class="controls">
+				{input active}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label guest class=>"control-label" /}
+			<div class="controls">
+				{input guest}
 			</div>
 		</div>
 		
@@ -43,20 +69,6 @@
 			{label description class=>"control-label" /}
 			<div class="controls">
 				{input description class => 'span5'}
-			</div>
-		</div>
-		
-		<div class="control-group">
-			{label hidden class=>"control-label" /}
-			<div class="controls">
-				{input hidden}
-			</div>
-		</div>
-		
-		<div class="control-group">
-			{label attendance_active class=>"control-label" /}
-			<div class="controls">
-				{input attendance_active}
 			</div>
 		</div>
 		

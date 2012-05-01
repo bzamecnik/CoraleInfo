@@ -1,16 +1,12 @@
 {status 404}
 
-{var $title = 'Nenalezeno'}
+{var $title = 'Neznámá osoba'}
 
 {block content}
 
-<h1>Člen nenalezen</h1>
+<p>Litujeme, ale požadovaná osoba nebyla nalezena.</p>
 
-<p>Litujeme, ale požadovaný člen nebyl nalezen.</p>
-
-<div>
-	<a n:href="Member:">zpět na seznam členů</a>
-</div>
+<a n:href="Member: id => ''" class="btn btn-primary">&larr;&nbsp;Zpět na seznam členů</a>
 
 {/block}
 

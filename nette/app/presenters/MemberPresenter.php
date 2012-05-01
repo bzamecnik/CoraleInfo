@@ -23,6 +23,7 @@ class MemberPresenter extends BasePresenter
 		$this->member = $this->context->createMembers()->get($id);
 		if ($this->member === FALSE) {
 			$this->setView('notFound');
+			return;
 		}
 	}
 	
@@ -37,6 +38,7 @@ class MemberPresenter extends BasePresenter
 		$this->member = $this->context->createMembers()->get($id);
 		if ($this->member === FALSE) {
 			$this->setView('notFound');
+			return;
 		}
 		$this["memberForm"]->setDefaults($this->member);
 	}
@@ -109,9 +111,9 @@ class MemberPresenter extends BasePresenter
 	protected function createComponentMemberForm()
 	{
 		$form = new Form();
-		$form->addText('first_name', 'Jméno *')
+		$form->addText('first_name', 'Jméno')
 			->addRule(Form::FILLED, 'Je nutné zadat jméno.');
-		$form->addText('last_name', 'Příjmení *')
+		$form->addText('last_name', 'Příjmení')
 			->addRule(Form::FILLED, 'Je nutné zadat příjmení.');
 		$form->addSelect('voice_type', 'Hlas', MemberTranslator::$voice_types)
 			->setPrompt('- Vyberte -');
@@ -124,11 +126,7 @@ class MemberPresenter extends BasePresenter
 			->setDefaultValue(FALSE);
 		$form->addTextArea('description', 'Další informace');
 		
-		if ($this->member) {
-			$form->addSubmit('edit', 'Upravit');
-		} else {
-			$form->addSubmit('create', 'Vytvořit');
-		}
+		$form->addSubmit('save', $this->member ? 'Upravit' : 'Vytvořit');
 		$form->onSuccess[] = callback($this, 'processMemberForm');
 		
 		$presenter = $this;
