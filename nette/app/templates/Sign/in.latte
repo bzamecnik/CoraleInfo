@@ -3,4 +3,33 @@
 
 {block #content}
 
-{control signInForm}
+{form signInForm}
+<div class="form-horizontal">
+	<fieldset>
+		{control $form errors}
+
+		<div class="control-group">
+		  {label username class=>"control-label" /}
+		  <div class="controls">
+			{input username autofocus => true}
+		  </div>
+		</div>
+		
+		<div class="control-group">
+		  {label password class=>"control-label" /}
+		  <div class="controls">
+			{input password}
+		  </div>
+		</div>
+		
+		  <div class="controls">
+			{input persistent}
+			{label persistent class=>"help-inline" /}
+		  </div>
+
+		<div class="form-actions">
+			{input login class=>"btn btn-primary"}
+        </div>
+	</fieldset>
+</div>
+{/form}
