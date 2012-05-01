@@ -7,6 +7,9 @@
 	<a n:href="this type=>$key" class="badge">{$value|lower}</a>{sep} | {/sep}
 	{/foreach}
 *}
+
+	{include createEventButton.latte}
+
 	{if isset($showHidden) and $showHidden}
 		<a n:href="this showHidden=>''" class="btn">Nezobrazovat skryté</a>
 	{else}
