@@ -8,8 +8,13 @@
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+	/** Identifier of the session for storing user preferences. */
+	const SESSION_USER_PREFS = 'SESSION_USER_PREFS';
+
 	public function startup() {
 		parent::startup();
+	
+		$this->getUserPrefsSession()->setExpiration('+ 14 days');
 	
 		Nette\Forms\Container::extensionMethod('addDateTimePicker',
 			function (Nette\Forms\Container $container, $name, $label = NULL) {
@@ -44,5 +49,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	protected function nullizeEmptyString($str) {
 		$str = trim($str);
 		return !empty($str) ? $str : NULL; 
+	}
+	
+	protected function getUserPrefsSession() {
+		return $this->getSession(self::SESSION_USER_PREFS);
 	}
 }

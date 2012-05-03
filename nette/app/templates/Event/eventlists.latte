@@ -10,10 +10,10 @@
 
 	{include createEventButton.latte}
 
-	{if isset($showHidden) and $showHidden}
-		<a n:href="this showHidden=>''" class="btn">Nezobrazovat skryté</a>
+	{if $showHidden}
+		<a n:href="setShowHidden! showHidden=>0" class="btn">Nezobrazovat skryté</a>
 	{else}
-		<a n:href="this showHidden=>true" class="btn">Zobrazit skryté</a>
+		<a n:href="setShowHidden! showHidden=>1" class="btn">Zobrazit skryté</a>
 	{/if}
 </div>
 

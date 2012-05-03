@@ -13,6 +13,8 @@ class EventPresenter extends BasePresenter
 		Events::TYPE_OTHER => 'Různé'
 		);
 	
+	const SESSION_KEY_SHOW_HIDDEN_EVENTS = 'EventPresenter.showHiddenEvents';
+	
 	/** @persistent int */
 	public $id;
 	/** @var Events */
@@ -23,25 +25,22 @@ class EventPresenter extends BasePresenter
 	private $filterYear = '';
 	/** @var string */
 	private $filterType = '';
-	/** @var boolean */
-	private $showHidden = false;
 	/** @var array */
 	private $years;
 
-	public function actionDefault($type, $showHidden) {
+	public function actionDefault($type)
+	{
 		$this->filterFromNow = true;
 		
 		$this->filterType = $type;
-		$this->showHidden = $showHidden;
 	}
 	
-	public function actionArchive($year, $type, $showHidden)
+	public function actionArchive($year, $type)
 	{
 		$this->years = $this->getEventYears();
 		$this->filterYear = !empty($year) ? $year : date('Y');
 		
 		$this->filterType = $type;
-		$this->showHidden = $showHidden;
 	}
 
 	public function actionDetails($id)
@@ -80,6 +79,10 @@ class EventPresenter extends BasePresenter
 		$this->id = null;
 		$this->redirect('default');
 	}
+	
+	public function handleSetShowHidden($showHidden) {
+		$this->setShowHidden((bool)$showHidden);
+	}
 
 	public function renderDefault()
 	{
@@ -101,7 +104,7 @@ class EventPresenter extends BasePresenter
 		$this->template->types = $this->eventTypes;
 		$this->template->type = $this->filterType;
 		$this->template->year = $this->filterYear;
-		$this->template->showHidden = $this->showHidden;
+		$this->template->showHidden = $this->getShowHidden();
 	}
 	
 	private function getEventYears()
@@ -138,7 +141,7 @@ class EventPresenter extends BasePresenter
 	public function createComponentEvents($eventTypes)
 	{
 		$query = $this->context->createEvents()->where('type', $eventTypes);
-		if (!$this->showHidden) {
+		if (!$this->getShowHidden()) {
 			$query->where('hidden', false);
 		}
 		if ($this->filterFromNow) {
@@ -204,4 +207,13 @@ class EventPresenter extends BasePresenter
 		$this->redirect('default');
 	}
 
+	private function getShowHidden() {
+		$session = $this->getUserPrefsSession();
+		return $session[self::SESSION_KEY_SHOW_HIDDEN_EVENTS];
+	}
+	
+	private function setShowHidden($showHidden) {
+		$session = $this->getUserPrefsSession();
+		$session[self::SESSION_KEY_SHOW_HIDDEN_EVENTS] = $showHidden;
+	}
 }
