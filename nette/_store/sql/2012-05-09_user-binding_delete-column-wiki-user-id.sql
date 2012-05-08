@@ -1,0 +1,1 @@
+ALTER TABLE `corale_user_binding` DROP COLUMN `wiki_user_id`;

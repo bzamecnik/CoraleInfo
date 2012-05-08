@@ -37,6 +37,7 @@ common:
 		events: Events
 		members: Members
 		attendances: Attendances
+		userBindings: UserBindings
 
 
 production < common:

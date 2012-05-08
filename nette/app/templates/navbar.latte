@@ -25,21 +25,24 @@
 							<i class="icon-home icon-white"></i>&nbsp;corale.cz</a>
 						</li>
 						<li class="divider-vertical"></li>
-					{if $user->isLoggedIn()}
-						
-						
 						<li class="dropdown" id="userMenu">
-					    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-					      <i class="icon-user icon-white"></i> {$user->getIdentity()->name}
-					      <b class="caret"></b>
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+							<i class="icon-user icon-white"></i>
+						{if $user->isLoggedIn()}
+							{$user->getIdentity()->name}
+						{else}
+							Přihlásit se
+						{/if}
+							<b class="caret"></b>
 					    </a>
-					    <ul class="dropdown-menu">
-					      <li><a n:href="signOut!">Odhlásit se</a></li>
+						<ul class="dropdown-menu">
+						{if $user->isLoggedIn()}
+							<li><a n:href="WordPressSign:out">Odhlásit se</a></li>
+						{else}
+							<li><a n:href="WordPressSign:in">Přes účet na corale.cz</a></li>
+						{/if}
 					    </ul>
 					  </li>
-					{else}
-						<li><a n:href="Sign:in">Přihlásit se</a></li>
-					{/if}
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>

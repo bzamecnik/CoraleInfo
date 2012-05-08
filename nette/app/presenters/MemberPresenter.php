@@ -144,13 +144,13 @@ class MemberPresenter extends BasePresenter
 		$this->ensureLoggedUser();
 		if ($this->id AND !$this->member) {
 			// record existence check in case of editing
-    	throw new BadRequestException;
-    }
-    $values = $form->values;
-    foreach (array('voice_type', 'instruments', 'email', 'phone', 'description')
-			as $field) {
-    	$values[$field] = $this->nullizeEmptyString($values[$field]);
-    }
+			throw new BadRequestException;
+		}
+		$values = $form->values;
+		foreach (array('voice_type', 'instruments', 'email', 'phone', 'description')
+				as $field) {
+			$values[$field] = $this->nullizeEmptyString($values[$field]);
+		}
 		if ($this->id) {
 			$this->context->createMembers()
 				->where(array('id' => $this->id))
