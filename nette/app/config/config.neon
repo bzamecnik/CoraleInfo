@@ -49,7 +49,7 @@ production < common:
 		- passwords-production.neon
 	services:
 		wpAuthenticator:
-			arguments: ['/../../wordpress/', 'http://corale.cz/']
+			arguments: ['/wordpress/', 'http://corale.cz/wordpress/']
 
 development < common:
 
