@@ -21,16 +21,11 @@ common:
 				dsn: '%database.driver%:host=%database.host%;dbname=%database.dbname%'
 				user: %database.user%
 				password: %database.password%
-
-#		security:
-#			users:
-#				corale: rudyvoko
 				
 
 	services:
 		database: @Nette\Database\Connection
 
-#		authenticator: Authenticator()
 		wpAuthenticator:
 			class: WordPressAuthenticator
 
