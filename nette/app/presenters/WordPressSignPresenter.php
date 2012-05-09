@@ -47,6 +47,10 @@ class WordPressSignPresenter extends BasePresenter
 		$this->redirect('Homepage:');
 	}
 	
+	public function actionProfile() {
+		$this->redirectUrl($this->wpAuthenticator->getWpUserProfileUrl());
+	}
+	
 	/** redirect to the WordPress login page */
 	public function redirectToWpLoginPage() {
 		$this->redirectUrl($this->wpAuthenticator->getWpLoginPageUrl());

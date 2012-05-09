@@ -37,9 +37,10 @@
 					    </a>
 						<ul class="dropdown-menu">
 						{if $user->isLoggedIn()}
-							<li><a n:href="WordPressSign:out">Odhlásit se</a></li>
+							<li><a n:href="WordPressSign:profile" title="Profil uživatele na WordPressu" target="_blank">Profil</a></li>
+							<li><a n:href="WordPressSign:out" title="Odhlásit se z této stránky (přihlášení do WordPressu zůstane)">Odhlásit se</a></li>
 						{else}
-							<li><a n:href="WordPressSign:in">Přes účet na corale.cz</a></li>
+							<li><a n:href="WordPressSign:in" title="Přihlásit se pomocí uživatele ve WordPressu">Přes účet na corale.cz</a></li>
 						{/if}
 					    </ul>
 					  </li>

@@ -55,4 +55,12 @@ class WordPressAuthenticator extends Nette\Object
 		$url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		return $this->wpUrl."wp-login.php?redirect_to=$url";
 	}
+	
+	public function getWpUserProfileUrl() {
+		return $this->wpUrl."wp-admin/profile.php";
+	}
+	
+	public function getWpBaseUrl() {
+		return $this->wpUrl;
+	}
 }
