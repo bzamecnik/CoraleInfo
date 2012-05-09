@@ -1,0 +1,1 @@
+INSERT INTO `corale_user_binding` (member_id, wp_user_id) SELECT m.ID member_id, u.ID wp_user_id FROM `wp_users` u JOIN `corale_member` m ON m.email = u.user_email WHERE
