@@ -46,6 +46,12 @@ Tato stránka nahrazuje starou stránku
 			</a>
 			{/if}
 *}
+{*
+			{snippet attendanceButton-$event->id-$memberAtt->member_id}
+			{control attendanceButton, $event->id, $memberAtt->member_id, $memberAtt->attend}
+			{/snippet}
+*}
+
 			<a href="{plink Attendance:event $event->id}" class="btn btn-info" title="Účast lidí">
 				<i class="icon-check icon-white"></i>&nbsp;
 			</a>

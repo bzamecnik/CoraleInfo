@@ -72,7 +72,13 @@
 			{control attendanceButton, $event->id, $memberAtt->member_id, $memberAtt->attend}
 			{/snippet}
 		</td>
+		{if strlen($memberAtt->attend_note) > 50}
+		<td href="#" class="shortened-comment" title="{$memberAtt->first_name} píše:" data-content="{$memberAtt->attend_note}">
+			{substr($memberAtt->attend_note, 0, 50)} [...]
+		</td>
+		{else}
 		<td>{$memberAtt->attend_note}</td>
+		{/if}
 		<td>
 			{if $user->isLoggedIn()}
 			<a class="btn" href="{if $memberAtt->attendance_id}
@@ -91,5 +97,11 @@
 
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".shortened-comment").popover({ placement:'bottom' });
+	});
+</script>
 
 {/block}
