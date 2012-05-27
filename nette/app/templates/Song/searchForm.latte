@@ -1,4 +1,7 @@
 {form searchForm action=>"song/search", method=>"GET", class=>"form-search"}
 {input query class=>"input-medium search-query"}
 {input search class=>"btn"}
+{if isset($query) && $query}
+<a n:href="Song: id=>''" class="btn">Zrušit hledání</a>
+{/if}
 {/form}
