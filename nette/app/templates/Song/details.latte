@@ -1,0 +1,36 @@
+{var $title = $song->title}
+
+{block content}
+
+<p>
+	<i class="icon-user"></i>&nbsp;{strpos($song->author, ',') == 0 ? 'Autor' : 'Autoři'}:
+
+	{if $song->author}
+	<strong>{$song->author}</strong>
+	{else}
+	<em>neznámý</em>
+	{/if}
+</p>
+
+{if $song->description}
+<p>
+{* TODO: possibly output raw HTML *}
+{$song->description}
+</p>
+{/if}
+
+{if $song->lyrics}
+<pre>
+{$song->lyrics}
+</pre>
+{/if}
+
+<a n:href="Song: id=>''" class="btn">&larr;&nbsp;Seznam písniček</a>
+
+{if $user->isLoggedIn()}
+<a href="{plink Song:edit $song->id}" class="btn" title="Upravit">
+	<i class="icon-pencil"></i>&nbsp;Upravit
+</a>
+{/if}
+
+{/block}

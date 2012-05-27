@@ -36,6 +36,7 @@ common:
 		members: Members
 		attendances: Attendances
 		userBindings: UserBindings
+		songs: Songs
 
 
 production < common:

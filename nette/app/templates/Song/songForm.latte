@@ -1,0 +1,53 @@
+{form songForm}
+<style type="text/css">
+.monospace-font {
+	font-family: 'Consolas', 'Courier New', monospace;
+}
+</style>
+<div class="form-horizontal">
+	<fieldset>
+		{control $form errors}
+
+		<div class="control-group">
+			{label title class=>"control-label" /}
+			<div class="controls">
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-exclamation-sign"></i>
+					</span>{input title autofocus => true, class=>"span4"}
+				</div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			{label author class=>"control-label" /}
+			<div class="controls">
+				{input author class=>"span4"}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label description class=>"control-label" /}
+			<div class="controls">
+				{input description class=>"span6"}
+			</div>
+		</div>
+		
+		<div class="control-group">
+			{label lyrics class=>"control-label" /}
+			<div class="controls">
+				{input lyrics class=>"span9 monospace-font"}
+			</div>
+		</div>
+
+		<div class="form-actions">
+			{input save class=>"btn btn-primary"}
+			{input cancel class=>"btn"}
+			<div class="pull-right">
+				{ifset $song}
+					{include deleteSongButton.latte}
+				{/ifset}
+			</div>
+		</div>
+	</fieldset>
+</div>
+{/form}
