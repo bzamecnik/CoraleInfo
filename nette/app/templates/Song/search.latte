@@ -1,0 +1,13 @@
+{var $title = 'Písničky'}
+
+{block content}
+
+<p>Výsledky vyhledávání slova '<strong>{$query}</strong>'.
+
+{include 'actionBar.latte'}
+
+{control songs}
+
+<a n:href="Song: id=>''" class="btn">&larr;&nbsp;Seznam písniček</a>
+
+{/block}

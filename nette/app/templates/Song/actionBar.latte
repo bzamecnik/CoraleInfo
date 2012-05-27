@@ -1,0 +1,13 @@
+<div class="well">
+<div class="pull-left">
+{include 'searchForm.latte'}
+</div>
+{if $user->isLoggedIn()}
+<div class="pull-right">
+
+	<a n:href="create" class="btn btn-success">
+		<i class="icon-plus icon-white"></i>&nbsp;Vložit novou písničku
+	</a>
+</div>
+{/if}
+</div>

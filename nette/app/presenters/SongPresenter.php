@@ -8,6 +8,10 @@ class SongPresenter extends BasePresenter
 	public $id;
 	/** @var Songs */
 	private $song;
+		/** @var Songs */
+	private $songs;
+	
+	private $query;
 
 	public function actionDetails($id)
 	{
@@ -42,13 +46,13 @@ class SongPresenter extends BasePresenter
 		$this->id = null;
 		$this->redirect('default');
 	}
-
-	public function renderDefault() {
-		$query = $this->context->createSongs();
-		$query->order('title');
-		$this->template->songs = $query;
-	}
 	
+	public function actionSearch($query)
+	{
+		$this->query = $query;
+		$this["searchForm"]->setDefaults(array('query' => $this->query));
+	}
+
 	public function renderDetails()
 	{
 		$this->template->song = $this->song;
@@ -59,6 +63,22 @@ class SongPresenter extends BasePresenter
 		$this->template->song = $this->song;
 	}
 	
+	public function renderSearch() {
+		$this->template->query = $this->query;
+	}
+
+	public function createComponentSongs()
+	{
+		$q = $this->context->createSongs();
+		if ($this->query) {
+			$term = "%$this->query%";
+			$q->where("title LIKE ? OR author LIKE ? OR description LIKE ? OR lyrics LIKE ?",
+				array($term, $term, $term, $term));
+		}
+		$q->order('title');
+		return new SongList($q, $this->context->createSongs());
+	}
+
 	protected function createComponentSongForm()
 	{
 		$form = new Form();
@@ -77,7 +97,7 @@ class SongPresenter extends BasePresenter
 			->onClick[] = function () use ($presenter) {
 				$presenter->id = null;
 				$presenter->redirect('default');
-			};		
+			};
 		return $form;
 	}
 
@@ -102,5 +122,14 @@ class SongPresenter extends BasePresenter
 			$this->flashMessage('Písnička byla vytvořena.', 'success');
 		}
 		$this->redirect('details', array('id' => $this->id));
+	}
+	
+	protected function createComponentSearchForm()
+	{
+		$form = new Form();
+		$form->addText('query', 'Hledaný text')
+			->addRule(Form::FILLED, 'Je nutné zadat hledaný text.');
+		$form->addSubmit('search', 'Hledat');
+		return $form;
 	}
 }
