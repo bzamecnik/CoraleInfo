@@ -49,6 +49,7 @@ class MemberPresenter extends BasePresenter
 //		$this->member = $this->context->createMembers()->get($id);
 //		if ($this->member === FALSE) {
 //			$this->setView('notFound');
+//			return;
 //		}
 //		$this->context->createMembers()->where(array('id' => $id))->delete();
 //		$this->flashMessage('Osoba byla smazána.', 'success');

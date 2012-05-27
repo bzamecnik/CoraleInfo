@@ -48,6 +48,7 @@ class EventPresenter extends BasePresenter
 		$this->event = $this->context->createEvents()->get($id);
 		if ($this->event === FALSE) {
 			$this->setView('notFound');
+			return;
 		}
 	}
 	
@@ -62,6 +63,7 @@ class EventPresenter extends BasePresenter
 		$this->event = $this->context->createEvents()->get($id);
 		if ($this->event === FALSE) {
 			$this->setView('notFound');
+			return;
 		}
 		$this["eventForm"]->setDefaults($this->event);
 	}
