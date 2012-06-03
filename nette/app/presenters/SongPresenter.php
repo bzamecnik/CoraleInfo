@@ -121,7 +121,7 @@ class SongPresenter extends BasePresenter
 			$this->id = $this->context->createSongs()->insert($values)->id;
 			$this->flashMessage('Písnička byla vytvořena.', 'success');
 		}
-		$this->redirect('details', array('id' => $this->id));
+		$this->redirect('default');
 	}
 	
 	protected function createComponentSearchForm()
