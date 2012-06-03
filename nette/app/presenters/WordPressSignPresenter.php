@@ -18,7 +18,8 @@ class WordPressSignPresenter extends BasePresenter
 	{
 		if ($this->getUser()->isLoggedIn()) {
 			$this->flashMessage("Už jste byli přihlášeni pomocí WordPressu.", 'success');
-			$this->redirect('Homepage:');
+			$this->redirectBackOrHome();
+			return;
 		}
 	
 		$wpUserId = $this->wpAuthenticator->getLoggedWordPressUserId();
@@ -30,7 +31,7 @@ class WordPressSignPresenter extends BasePresenter
 			if ($identity != NULL) {
 				$this->getUser()->login($identity);
 				$this->flashMessage("Přihlášení pomocí WordPressu proběhlo úspěšně.", 'success');
-				$this->redirect('Homepage:');
+				$this->redirectBackOrHome();
 			} else {
 				$this->flashMessage("Přihlášený uživatel WordPressu (ID: $wpUserId) není asociován k žádnému členovi.", 'error');
 			}
@@ -53,6 +54,16 @@ class WordPressSignPresenter extends BasePresenter
 	
 	/** redirect to the WordPress login page */
 	public function redirectToWpLoginPage() {
-		$this->redirectUrl($this->wpAuthenticator->getWpLoginPageUrl());
+		$url = $this->wpAuthenticator->getWpLoginPageUrl();
+		$this->redirectUrl($url);
+	}
+	
+	private function redirectBackOrHome() {
+		$backlink = $this->getParam('backlink');
+		if ($backlink) {
+			$this->getApplication()->restoreRequest($backlink);
+		} else {
+			$this->redirect('Homepage:');
+		}
 	}
 }

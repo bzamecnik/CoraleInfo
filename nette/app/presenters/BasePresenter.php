@@ -36,7 +36,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	protected function ensureLoggedUser()
 	{
 		if (!$this->getUser()->isLoggedIn()) {
-			$this->redirect('Sign:in');
+			$backlink = $this->getApplication()->storeRequest();
+			$this->redirect('WordPressSign:in', array('backlink' => $backlink));
 		}
 	}
 	

@@ -13,49 +13,53 @@ use Nette\Application\UI,
  */
 class SignPresenter extends BasePresenter
 {
-	/**
-	 * Sign in form component factory.
-	 * @return Nette\Application\UI\Form
-	 */
-	protected function createComponentSignInForm()
-	{
-		$form = new UI\Form;
-		$form->addText('username', 'Uživatelské jméno:')
-			->setRequired('Zadejte prosím uživatelské jméno.');
-
-		$form->addPassword('password', 'Heslo:')
-			->setRequired('Zadejte prosím heslo.');
-
-		$form->addCheckbox('persistent', 'Pamatovat si mě na tomto počítači');
-
-		$form->addSubmit('login', 'Přihlásit se');
-
-		$form->onSuccess[] = callback($this, 'signInFormSubmitted');
-		return $form;
+	public function actionIn() {
+		$this->redirect('WordPressSign:in');
 	}
 
-	public function signInFormSubmitted($form)
-	{
-		try {
-			$values = $form->getValues();
-			if ($values->persistent) {
-				$this->getUser()->setExpiration('+ 14 days', FALSE);
-			} else {
-				$this->getUser()->setExpiration('+ 20 minutes', TRUE);
-			}
-			$this->getUser()->login($values->username, $values->password);
-			$this->flashMessage('Přihlášení bylo úspěšné.', 'success');
-			$this->redirect('Homepage:');
+	// /**
+	 // * Sign in form component factory.
+	 // * @return Nette\Application\UI\Form
+	 // */
+	// protected function createComponentSignInForm()
+	// {
+		// $form = new UI\Form;
+		// $form->addText('username', 'Uživatelské jméno:')
+			// ->setRequired('Zadejte prosím uživatelské jméno.');
 
-		} catch (NS\AuthenticationException $e) {
-			$form->addError('Neplatné uživatelské jméno nebo heslo.');
-		}
-	}
+		// $form->addPassword('password', 'Heslo:')
+			// ->setRequired('Zadejte prosím heslo.');
 
-	public function actionOut()
-	{
-		$this->getUser()->logout();
-		$this->flashMessage('Byli jste odhlášeni.');
-		$this->redirect('in');
-	}
+		// $form->addCheckbox('persistent', 'Pamatovat si mě na tomto počítači');
+
+		// $form->addSubmit('login', 'Přihlásit se');
+
+		// $form->onSuccess[] = callback($this, 'signInFormSubmitted');
+		// return $form;
+	// }
+
+	// public function signInFormSubmitted($form)
+	// {
+		// try {
+			// $values = $form->getValues();
+			// if ($values->persistent) {
+				// $this->getUser()->setExpiration('+ 14 days', FALSE);
+			// } else {
+				// $this->getUser()->setExpiration('+ 20 minutes', TRUE);
+			// }
+			// $this->getUser()->login($values->username, $values->password);
+			// $this->flashMessage('Přihlášení bylo úspěšné.', 'success');
+			// $this->redirect('Homepage:');
+
+		// } catch (NS\AuthenticationException $e) {
+			// $form->addError('Neplatné uživatelské jméno nebo heslo.');
+		// }
+	// }
+
+	// public function actionOut()
+	// {
+		// $this->getUser()->logout();
+		// $this->flashMessage('Byli jste odhlášeni.');
+		// $this->redirect('in');
+	// }
 }
