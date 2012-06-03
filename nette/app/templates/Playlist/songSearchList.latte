@@ -1,0 +1,33 @@
+{if isset($songs) and count($songs) > 0}
+<style type="text/css">
+table th.action, table td.action {
+	width: 7em;
+	text-align: center;
+}
+</style>
+
+<table class="table table-striped table-bordered table-condensed">
+	<thead>
+	<tr>
+		<th class="title"><i class="icon-music"></i>&nbsp;Název</th>
+		<th class="author"><i class="icon-music"></i>&nbsp;Autor</th>
+		<th class="action"><i class="icon-cog"></i></th>
+	</tr>
+	</thead>
+	<tbody>
+	{foreach $songs as $song}
+	<tr n:class="$iterator->isOdd() ? odd : even">
+		<td class="title"><a href="{link Song:details $song->id}"><strong>{$song->title}</strong></a></td>
+		<td class="author">{$song->author}</td>
+		<td class="action">
+			<a href="{link updateItem eventId=>$eventId, songId=>$song->id}" class="btn btn-success" title="Přidat do playlistu">
+				<i class="icon-plus icon-white"></i>
+			</a>
+		</td>
+	</tr>
+	{/foreach}
+	</tbody>
+</table>
+{else}
+<p>Žádné písničky.</p>
+{/if}

@@ -1,6 +1,12 @@
+<style type="text/css">
+table.eventlist td.action {
+	width: 13em;
+}
+</style>
+
 {snippet}
 {if isset($events) and count($events) > 0}
-<table class="table table-striped table-bordered table-condensed">
+<table class="table table-striped table-bordered table-condensed eventlist">
 	<thead>
 	<tr>
 		<th class="date_start"><i class="icon-time"></i>&nbsp;Kdy</th>
@@ -28,6 +34,9 @@
 				<i class="icon-pencil"></i>
 			</a>
 			{/if}
+			<a href="{plink Playlist: eventId=>$event->id}" class="btn" title="Playlist">
+				<i class="icon-list"></i>
+			</a>
 			{if $event->attendance_active}
 			<a href="{plink Attendance:event $event->id}" class="btn" title="Účast">
 				<i class="icon-check"></i>

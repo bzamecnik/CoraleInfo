@@ -1,0 +1,68 @@
+{var $title = 'Playlist'}
+
+{block content}
+
+<p>
+	<a href="{link Event:details $eventId}" class="btn">
+		<i class="icon-search"></i>&nbsp;Detaily události
+	</a>
+	<a href="{link default eventId=>$eventId}" class="btn">
+		<i class="icon-list"></i>&nbsp;Zobrazit playlist
+	</a>
+	<a href="{link add eventId=>$eventId}" class="btn btn-success">
+		<i class="icon-plus icon-white"></i>&nbsp;Přidat písničku
+	</a>
+</p>
+
+
+{* TODO: AJAXify
+<p>
+	<a href="#playlistItemAddModal" data-toggle="modal" class="btn btn-success">
+		<i class="icon-plus icon-white"></i>&nbsp;Přidat písničku
+	</a>
+</p>
+<div class="modal hide" id="playlistItemAddModal">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>Přidat písničky do playlistu</h3>
+	</div>
+	<div class="modal-body">
+		{control songSearchPanel}
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Zpět</a>
+	</div>
+</div>
+*}
+
+<style type="text/css">
+table.playlist th.action, table.playlist td.action {
+	width: 9em;
+	text-align: center;
+}
+</style>
+
+{foreach $playlist as $song}
+{first}
+{var $i = 0}
+<table class="table table-condensed playlist">
+{/first}
+{? $i++}
+	<tr>
+		<td style="width: 2em">{$i}.</td>
+		<td class="song-title"><a href="{link Song:details $song->id}">{$song->title}</td>
+		<td class="action">
+			<a {if $song->order > 0}href="{link Playlist:updateItem eventId=>$eventId, songId=>$song->id, order=>$song->order-1}"{/if}
+				class="btn{if $song->order <= 0} disabled{/if}" title="Posunout nahoru"><i class="icon-chevron-up"></i></a>
+			<a href="{link Playlist:updateItem eventId=>$eventId, songId=>$song->id, order=>$song->order+1}"
+				class="btn" title="Posunout dolů"><i class="icon-chevron-down"></i></a>
+			<a href="{link Playlist:delete eventId=>$eventId, songId=>$song->id}"
+			class="btn" title="Odstranit z playlistu"><i class="icon-remove"></i></a>
+		</td>
+	</tr>
+{last}
+</table>
+{/last}
+{/foreach}
+
+{/block}

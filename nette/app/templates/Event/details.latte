@@ -36,13 +36,16 @@
 
 <div>
 	<a n:href="Event:" class="btn">&larr;&nbsp;Seznam událostí</a>
+{if $user->isLoggedIn()}
+	<a n:href="Event:edit $event->id" class="btn"><i class="icon-pencil"></i>&nbsp;Upravit</a>
+{/if}
 	<a {if $event->attendance_active}href="{link Attendance:event $event->id}"{/if}
 		class="btn {(!$event->attendance_active) ? 'disabled' : 'btn-info'}">
 		<i class="icon-check {$event->attendance_active ? icon-white}"></i>&nbsp;Vyplnit účast
 	</a>
-{if $user->isLoggedIn()}
-	<a n:href="Event:edit $event->id" class="btn"><i class="icon-pencil"></i>&nbsp;Upravit</a>
-{/if}
+	<a href="{link Playlist: eventId=>$event->id}" class="btn btn-info">
+		<i class="icon-list icon-white"></i>&nbsp;Playlist
+	</a>
 	<div class="pull-right">
 		{include deleteEventButton.latte}
 	</div>

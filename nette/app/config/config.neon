@@ -37,6 +37,7 @@ common:
 		attendances: Attendances
 		userBindings: UserBindings
 		songs: Songs
+		playlistItems: PlaylistItems
 
 
 production < common:
