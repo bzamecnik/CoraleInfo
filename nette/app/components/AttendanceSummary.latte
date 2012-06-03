@@ -1,0 +1,18 @@
+<p>Lidé, kteří se zúčastní této akce (aktivní členové a hosté).</p>
+
+<table class="table table-striped table-bordered">
+	<tbody>
+		<tr><td><i class="icon-ok-sign"></i>&nbsp;Účastní se</td>
+		<td><span class="badge badge-success">{$attendanceCounts['yes']}</span></td>
+	</tr>
+		<tr><td><i class="icon-remove-sign"></i>&nbsp;Neúčastní se</td>
+		<td><span class="badge badge-error">{$attendanceCounts['no']}</span></td>
+	</tr>
+		<tr><td><i class="icon-question-sign"></i>&nbsp;Ostatní, co nepotvrdili nic</td>
+		<td><span class="badge">{$attendanceCounts['other']}</span></td>
+	</tr>
+		<tr><td><i class="icon-repeat"></i>&nbsp;Celkem (včetně hostů)</td>
+		<td><span class="badge badge-info">{$attendanceCounts['total']}</span></td>
+	</tr>
+	</tbody>
+</table>

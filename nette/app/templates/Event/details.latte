@@ -24,6 +24,16 @@
 	</tr>
 </table>
 
+{if $event->attendance_active}
+<h2>Účast</h2>
+
+<div class="row">
+	<div class="span5">
+	{control attendanceSummary, $event->id}
+	</div>
+</div>
+{/if}
+
 <div>
 	<a n:href="Event:" class="btn">&larr;&nbsp;Seznam událostí</a>
 	<a {if $event->attendance_active}href="{link Attendance:event $event->id}"{/if}

@@ -209,6 +209,11 @@ class EventPresenter extends BasePresenter
 		$this->redirect('default');
 	}
 
+	public function createComponentAttendanceSummary()
+	{
+		return new AttendanceSummary();
+	}
+	
 	private function getShowHidden() {
 		$session = $this->getUserPrefsSession();
 		return $session[self::SESSION_KEY_SHOW_HIDDEN_EVENTS];

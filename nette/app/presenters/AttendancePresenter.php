@@ -107,30 +107,6 @@ class AttendancePresenter extends BasePresenter
 		if (!isset($this->template->membersGroupedByVoice)) {
 			$this->template->membersGroupedByVoice = $this->getAllAttendancesGroupedByVoice($id);
 		}
-		
-		$query = <<<EOQ
-SELECT a.attend as attend, count(attend) as cnt
-FROM corale_member m
-JOIN corale_attendance a ON m.id = a.member_id AND a.event_id = ?
-JOIN corale_event e ON e.id = a.event_id
-WHERE m.active = 1
-GROUP BY a.attend;
-EOQ;
-		$attendanceCounts = $this->context->createMembers()->getConnection()->query($query, $id)->fetchPairs('attend', 'cnt');
-		
-		if (!isset($attendanceCounts['0'])) {
-			$attendanceCounts['0'] = 0;
-		}
-		if (!isset($attendanceCounts['1'])) {
-			$attendanceCounts['1'] = 0;
-		}
-		$total = $this->context->createMembers()->where('active', true)->count();
-		$this->template->attendanceCounts = array(
-			'yes' => $attendanceCounts['1'],
-			'no' => $attendanceCounts['0'],
-			'other' => $total - ($attendanceCounts['1'] + $attendanceCounts['0']),
-			'total' => $total,
-			);
 	}
 	
 	private function getAttendancesByVoice($eventId, $voiceTypeSql) {
@@ -214,6 +190,11 @@ EOQ;
 	public function createComponentAttendanceButton()
 	{
 		return new AttendanceButton();
+	}
+	
+	public function createComponentAttendanceSummary()
+	{
+		return new AttendanceSummary();
 	}
 	
 	public function processAttendanceForm(Form $form)
