@@ -5,13 +5,14 @@
 {if $user->isLoggedIn()}
 <p>
 	<a href="{link Event:details $eventId}" class="btn">
-		<i class="icon-search"></i>&nbsp;Detaily události
+		<i class="icon-time"></i>&nbsp;Detaily události
 	</a>
 	<a href="{link edit eventId=>$eventId}" class="btn btn-primary">
 		<i class="icon-pencil icon-white"></i>&nbsp;Upravit
 	</a>
 </p>
 {/if}
+
 
 {foreach $playlist as $song}
 {first}
@@ -21,11 +22,12 @@
 {? $i++}
 	<tr>
 		<td style="width: 2em">{$i}.</td>
-		<td><a href="{link Song:details $song->id}">{$song->title}</td>
+		<td><a href="{link Song:details $song->id}">{$song->title}</a></td>
 	</tr>
 {last}
 </table>
 {/last}
 {/foreach}
+
 
 {/block}

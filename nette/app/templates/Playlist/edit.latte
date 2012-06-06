@@ -7,13 +7,11 @@
 		<i class="icon-search"></i>&nbsp;Detaily události
 	</a>
 	<a href="{link default eventId=>$eventId}" class="btn">
-		<i class="icon-list"></i>&nbsp;Zobrazit playlist
-	</a>
-	<a href="{link add eventId=>$eventId}" class="btn btn-success">
-		<i class="icon-plus icon-white"></i>&nbsp;Přidat písničku
+		<i class="icon-remove"></i>&nbsp;Neukládat
 	</a>
 </p>
 
+{control playlistEditor, $eventId, $playlist, $repertoire}
 
 {* TODO: AJAXify
 <p>
@@ -35,6 +33,7 @@
 </div>
 *}
 
+{*
 <style type="text/css">
 table.playlist th.action, table.playlist td.action {
 	width: 9em;
@@ -64,5 +63,6 @@ table.playlist th.action, table.playlist td.action {
 </table>
 {/last}
 {/foreach}
+*}
 
 {/block}

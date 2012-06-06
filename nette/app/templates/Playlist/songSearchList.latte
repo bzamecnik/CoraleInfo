@@ -1,4 +1,4 @@
-{if isset($songs) and count($songs) > 0}
+{if isset($repertoire) and count($repertoire) > 0}
 <style type="text/css">
 table th.action, table td.action {
 	width: 7em;
@@ -15,7 +15,7 @@ table th.action, table td.action {
 	</tr>
 	</thead>
 	<tbody>
-	{foreach $songs as $song}
+	{foreach $repertoire as $song}
 	<tr n:class="$iterator->isOdd() ? odd : even">
 		<td class="title"><a href="{link Song:details $song->id}"><strong>{$song->title}</strong></a></td>
 		<td class="author">{$song->author}</td>
