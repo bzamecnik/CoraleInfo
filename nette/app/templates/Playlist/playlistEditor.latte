@@ -1,7 +1,6 @@
-{if $user->isLoggedIn()}
 <style>
 .songlist li { margin: 0.25em; padding: 0.25em; font-size: 110%;  }
-.songlist { min-height: 2em; background: #f6f6f6; padding: 0.25em; }
+.songlist { min-height: 5em; background: #f6f6f6; padding: 0.25em; }
 #repertoire li .delete { display: none; }
 #playlist li .add { display: none; }
 </style>
@@ -41,14 +40,6 @@ $(function() {
 	});
 });
 </script>
-
-<form action="{plink Playlist:update eventId=>$eventId}" method="POST">
-	<input type="hidden" id="songIds" name="songIds">
-	<button type="submit" id="playlistSave" class="btn btn-primary">
-		<i class="icon-ok icon-white"></i>&nbsp;Uložit playlist
-	</button>
-</form>
-{/if}
 
 <div class="row">
 	<div class="span5">	

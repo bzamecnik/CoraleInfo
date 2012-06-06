@@ -35,6 +35,7 @@ class PlaylistPresenter extends BasePresenter
 	public function actionUpdate($eventId) {
 		$this->ensureLoggedUser();
 		
+		
 		$postParams = $this->request->getPost();
 		if (!array_key_exists('songIds', $postParams)) {
 			// TODO
@@ -42,7 +43,10 @@ class PlaylistPresenter extends BasePresenter
 		}
 		$songIds = explode(',', $postParams['songIds']);
 		
-		Nette\Diagnostics\Debugger::dump($songIds);
+		// synchronize the existing and the new playlist
+		// add/delete/update the items only when there is a change		
+		
+		// TODO: refactor into several smaller methods!
 		
 		$newSongs = array();
 		$songOrders = array();
@@ -53,14 +57,6 @@ class PlaylistPresenter extends BasePresenter
 				$songOrders[$songId] = "$i";
 			}
 		}
-		
-		Nette\Diagnostics\Debugger::dump("newSongs:");
-		Nette\Diagnostics\Debugger::dump($newSongs);
-		Nette\Diagnostics\Debugger::dump("songOrders:");
-		Nette\Diagnostics\Debugger::dump($songOrders);
-		
-		// TODO: synchronize the existing and the new playlist
-		// add/delete/update the items only when there is a change
 		
 		$existingSongsSel = $this->context->createPlaylistItems()->where(array('event_id' => $eventId));
 		
@@ -75,12 +71,6 @@ class PlaylistPresenter extends BasePresenter
 		// make a copy to be further filtered
 		$songsToDelete = $existingSongs;
 		
-		Nette\Diagnostics\Debugger::dump("existingSongs:");
-		Nette\Diagnostics\Debugger::dump($existingSongs);
-		Nette\Diagnostics\Debugger::dump("existingSongOrders:");
-		Nette\Diagnostics\Debugger::dump($existingSongOrders);
-		
-		
 		foreach ($newSongs as $song) {
 			// TODO: this smells with quardratic complexity
 			$key = array_search($song, $existingSongs);
@@ -90,30 +80,34 @@ class PlaylistPresenter extends BasePresenter
 			if ($found) {
 				$existingOrder = $existingSongOrders[$existingSongs[$key]];
 				if ($newOrder != $existingOrder) {
-					echo "updating song id $song order '$existingOrder' -> '$newOrder'<br>";
+					Nette\Diagnostics\Debugger::log(
+						"updating song id $song order '$existingOrder' -> '$newOrder'",
+						Nette\Diagnostics\Debugger::DEBUG);
 					$this->context->createPlaylistItems()
 						->where(array('event_id' => $eventId, 'song_id' => $song))
 						->update(array('ord' => $newOrder));
 				}
 				unset($songsToDelete[$key]);
 			} else {
-				echo "inserting song id $song with order $newOrder<br>";
+				Nette\Diagnostics\Debugger::log(
+					"inserting song id $song with order $newOrder",
+					Nette\Diagnostics\Debugger::DEBUG);
 				$this->context->createPlaylistItems()->insert(
 					array('event_id' => $eventId, 'song_id' => $song, 'ord' => $newOrder)
 				);
 			}
 		}
-		Nette\Diagnostics\Debugger::dump("songsToDelete:");
-		Nette\Diagnostics\Debugger::dump($songsToDelete);
+
 		foreach ($songsToDelete as $song) {
-			echo "deleting song id $song<br>";
+			Nette\Diagnostics\Debugger::log("deleting song id $song",
+				Nette\Diagnostics\Debugger::DEBUG);
 			$this->context->createPlaylistItems()
 				->where(array('event_id' => $eventId, 'song_id' => $song))
 				->delete();
 		}
 		
-		$this->flashMessage("Playlist byl upraven.");
-		//$this->redirect('edit', array('eventId' => $eventId));
+		$this->flashMessage("Playlist byl upraven.", 'success');
+		$this->redirect('edit', array('eventId' => $eventId));
 	}
 	
 	public function actionDelete($eventId, $songId) {
@@ -121,7 +115,7 @@ class PlaylistPresenter extends BasePresenter
 		
 		$key = array('event_id' => $eventId, 'song_id' => $songId);
 		$this->context->createPlaylistItems()->where($key)->delete();
-		// TODO: hande the situation where the playlist item is badly specified
+		// TODO: handle the situation where the playlist item is badly specified
 		// or does not exist
 		$this->flashMessage("Písnička byla smazána z playlistu.");
 		$this->redirect('edit', array('eventId' => $eventId));
@@ -178,9 +172,5 @@ EOQ;
 		$form->addText('query', 'Hledaný text');
 		$form->addSubmit('search', 'Hledat');
 		return $form;
-	}
-	
-	protected function createComponentPlaylistEditor() {
-		return new PlaylistEditor();
 	}
 }

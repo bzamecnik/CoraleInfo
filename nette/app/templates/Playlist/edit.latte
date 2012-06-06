@@ -3,66 +3,45 @@
 {block content}
 
 <p>
-	<a href="{link Event:details $eventId}" class="btn">
-		<i class="icon-search"></i>&nbsp;Detaily události
-	</a>
-	<a href="{link default eventId=>$eventId}" class="btn">
-		<i class="icon-remove"></i>&nbsp;Neukládat
-	</a>
+	<form action="{plink Playlist:update eventId=>$eventId}" method="POST">
+		<a href="{link Event:details $eventId}" class="btn">
+			<i class="icon-search"></i>&nbsp;Detaily události
+		</a>
+
+		<input type="hidden" id="songIds" name="songIds">
+		<button type="submit" id="playlistSave" class="btn btn-primary">
+			<i class="icon-ok icon-white"></i>&nbsp;Uložit playlist
+		</button>
+		
+		<a href="{link default eventId=>$eventId}" class="btn">
+			<i class="icon-remove"></i>&nbsp;Neukládat
+		</a>
+		
+		<div class="pull-right">
+			<a href="#playlistHelpModal" data-toggle="modal" class="btn">
+				<i class="icon-question-sign"></i>&nbsp;Nápověda
+			</a>
+		</div>
+	</form>
 </p>
 
-{control playlistEditor, $eventId, $playlist, $repertoire}
-
-{* TODO: AJAXify
-<p>
-	<a href="#playlistItemAddModal" data-toggle="modal" class="btn btn-success">
-		<i class="icon-plus icon-white"></i>&nbsp;Přidat písničku
-	</a>
-</p>
-<div class="modal hide" id="playlistItemAddModal">
+<div class="modal hide" id="playlistHelpModal">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
-		<h3>Přidat písničky do playlistu</h3>
+		<h3>Nápověda k úpravám playlistu</h3>
 	</div>
 	<div class="modal-body">
-		{control songSearchPanel}
+		<p>Písničky můžete přetáhnout ze zpěvníku pomocí myši (drag 
+		&amp; drop). Stejně tak lze písničky potom libovolně seřadit. 
+		Písničky lze také přidat ze zpěvníku do playlistu pomocí ikonky 
+		plus <i class="icon-plus"></i>, naopak odebrat písničku lze ikonkou 
+		křížku <i class="icon-remove"></i>.</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Zpět</a>
+		<a href="#" class="btn" data-dismiss="modal">OK</a>
 	</div>
 </div>
-*}
 
-{*
-<style type="text/css">
-table.playlist th.action, table.playlist td.action {
-	width: 9em;
-	text-align: center;
-}
-</style>
-
-{foreach $playlist as $song}
-{first}
-{var $i = 0}
-<table class="table table-condensed playlist">
-{/first}
-{? $i++}
-	<tr>
-		<td style="width: 2em">{$i}.</td>
-		<td class="song-title"><a href="{link Song:details $song->id}">{$song->title}</td>
-		<td class="action">
-			<a {if $song->order > 0}href="{link Playlist:updateItem eventId=>$eventId, songId=>$song->id, order=>$song->order-1}"{/if}
-				class="btn{if $song->order <= 0} disabled{/if}" title="Posunout nahoru"><i class="icon-chevron-up"></i></a>
-			<a href="{link Playlist:updateItem eventId=>$eventId, songId=>$song->id, order=>$song->order+1}"
-				class="btn" title="Posunout dolů"><i class="icon-chevron-down"></i></a>
-			<a href="{link Playlist:delete eventId=>$eventId, songId=>$song->id}"
-			class="btn" title="Odstranit z playlistu"><i class="icon-remove"></i></a>
-		</td>
-	</tr>
-{last}
-</table>
-{/last}
-{/foreach}
-*}
+{include 'playlistEditor.latte'}
 
 {/block}
