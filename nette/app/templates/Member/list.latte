@@ -11,13 +11,11 @@ Tato stránka nahrazuje stránku
 {include 'menu.latte'}
 
 <div class="pull-right">
-	{if $user->isLoggedIn()}
-	<div>
-		<a n:href="create" class="btn btn-success">
-			<i class="icon-plus icon-white"></i>&nbsp;Přidat osobu
-		</a>
-	</div>
-	{/if}
+{if $user->isLoggedIn()}
+	<a n:href="create" class="btn btn-success">
+		<i class="icon-plus icon-white"></i>&nbsp;Přidat osobu
+	</a>
+{/if}
 </div>
 
 {include #list}

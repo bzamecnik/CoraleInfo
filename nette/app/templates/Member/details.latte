@@ -42,7 +42,7 @@
 </div>
 
 <div class="row">
-	<div class="span5">
+	<div class="pull-left">
 		<a n:href="Member: id => ''" class="btn">&larr;&nbsp;Zpět na seznam členů</a>
 		{if $user->isLoggedIn()}
 		<a n:href="Member:edit $member->id" class="btn">
@@ -51,7 +51,7 @@
 		{*<a n:href="Member:delete $member->id" class="btn btn-danger">Smazat</a>*}
 		{/if}
 	</div>
-	<div class="span2 offset3">
+	<div class="pull-right">
 		<a {if $member->id > 1}href="link Member:details id => $member->id - 1"{/if} class="btn" {($member->id <= 1) ? 'disabled'}>&larr;&nbsp;Předchozí</a>
 		<a n:href="Member:details id => $member->id + 1" class="btn">Další&nbsp;&rarr;</a>
 	</div>

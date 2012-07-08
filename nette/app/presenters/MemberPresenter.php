@@ -5,7 +5,7 @@ use Nette\Application\UI\Form;
 class MemberPresenter extends BasePresenter
 {
 	/** @persistent int */
-  public $id;
+	public $id;
 	/** @var Members */
 	private $member;
 	/** @var boolean */
@@ -87,7 +87,7 @@ class MemberPresenter extends BasePresenter
 	}
 	
 	private function getListTitle($active, $guest) {
-		$title;
+		$title = "";
 		if ($active !== NULL) {
 			$title = $active ? 'Aktivní ' : 'Bývalí '; 
 		} else {
