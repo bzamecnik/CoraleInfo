@@ -19,9 +19,11 @@
 						<li{ifCurrent Attendance:*} class="active"{/ifCurrent}>
 							<a n:href="Attendance:" title="Kdo může dorazit na kterou akci?"><i class="icon-check icon-white"></i>&nbsp;Účast na akcích</a>
 						</li>
-						<li{ifCurrent Attendance:*} class="active"{/ifCurrent}>
+						{if $user->isLoggedIn()}
+						<li{ifCurrent Song:*} class="active"{/ifCurrent}>
 							<a n:href="Song:" title="Písničky, které zpíváme."><i class="icon-music icon-white"></i>&nbsp;Písničky</a>
 						</li>
+						{/if}
 					</ul>
 					<ul class="nav pull-right">
 						<li><a href="http://corale.cz/" title="Hlavní stránka sboru Corale">

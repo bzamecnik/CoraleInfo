@@ -4,16 +4,25 @@
 		</li>
 {/define}
 
+{if $user->isLoggedIn()}
 <div class="btn-group">
-  <button class="btn dropdown-toggle {$attendButtonStyles[$attendText]}" data-toggle="dropdown">
+	<button class="btn dropdown-toggle {$attendButtonStyles[$attendText]}" data-toggle="dropdown">
 		<i class="{($attend !== NULL) ? icon-white} {$attendIcons[$attendText]}">
 		</i>&nbsp;{$attendButtonTexts[$attendText]}
 		<span class="caret"></span>
 	</button>
-  <ul class="dropdown-menu">
-  	{include #buttonItem, text => 'Účastním se', attendValue => 1, attendIcon => 'yes'}
-  	{include #buttonItem, text => 'Neúčastním se', attendValue => 0, attendIcon => 'no'}
-    <li class="divider"></li>
-    {include #buttonItem, text => 'Nevyplněno', attendValue => null, attendIcon => 'null'}
-  </ul>
+	<ul class="dropdown-menu">
+		{include #buttonItem, text => 'Účastním se', attendValue => 1, attendIcon => 'yes'}
+		{include #buttonItem, text => 'Neúčastním se', attendValue => 0, attendIcon => 'no'}
+		<li class="divider"></li>
+		{include #buttonItem, text => 'Nevyplněno', attendValue => null, attendIcon => 'null'}
+	</ul>
 </div>
+{else}
+<div class="btn-group">
+	<button class="btn {$attendButtonStyles[$attendText]}">
+		<i class="{($attend !== NULL) ? icon-white} {$attendIcons[$attendText]}">
+		</i>&nbsp;{$attendButtonTexts[$attendText]}
+	</button>
+</div>
+{/if}

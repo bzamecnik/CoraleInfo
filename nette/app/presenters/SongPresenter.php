@@ -13,8 +13,14 @@ class SongPresenter extends BasePresenter
 	
 	private $query;
 
+	public function actionDefault() {
+		$this->ensureLoggedUser();
+	}
+	
 	public function actionDetails($id)
 	{
+		$this->ensureLoggedUser();
+	
 		$this->song = $this->context->createSongs()->get($id);
 		if ($this->song === FALSE) {
 			$this->setView('notFound');
@@ -49,6 +55,8 @@ class SongPresenter extends BasePresenter
 	
 	public function actionSearch($query)
 	{
+		$this->ensureLoggedUser();
+	
 		$this->query = $query;
 		$this["searchForm"]->setDefaults(array('query' => $this->query));
 	}

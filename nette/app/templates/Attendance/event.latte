@@ -74,12 +74,14 @@
 		</td>
 		<td>{$memberAtt->attend_note}</td>
 		<td>
-			
+			{if $user->isLoggedIn()}
 			<a class="btn" href="{if $memberAtt->attendance_id}
 				{plink Attendance:edit $memberAtt->attendance_id}{else}
 				{plink Attendance:create eventId => $event->id, memberId => $memberAtt->member_id}
 				{/if}" title="Upravit">
-			<i class="icon-pencil"></i></a>
+				<i class="icon-pencil"></i>
+			</a>
+			{/if}
 		</td>
 	</tr>
 	{/foreach}

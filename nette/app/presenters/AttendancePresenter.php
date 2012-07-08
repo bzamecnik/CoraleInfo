@@ -26,6 +26,8 @@ class AttendancePresenter extends BasePresenter
 	
 	// TODO: try to merge actionCreate() and actionEdit()
 	public function actionCreate($eventId, $memberId) {
+		$this->ensureLoggedUser();
+		
 		$this->event = $this->context->createEvents()->get($eventId);
 		$this->member = $this->context->createMembers()->get($memberId);
 		if (!$this->event or !$this->member) {
@@ -45,6 +47,8 @@ class AttendancePresenter extends BasePresenter
 	}
 	
 	public function actionEdit($id) {
+		$this->ensureLoggedUser();
+		
 		$this->attendance = $this->context->createAttendances()->get($id);
 		if (!$this->attendance) {
 			$this->flashMessage('Nelze nastavit účast, neboť zadaná událost nebo osoba neexistuje.', 'error');
