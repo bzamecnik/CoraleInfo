@@ -35,7 +35,6 @@ class PlaylistPresenter extends BasePresenter
 	public function actionUpdate($eventId) {
 		$this->ensureLoggedUser();
 		
-		
 		$postParams = $this->request->getPost();
 		if (!array_key_exists('songIds', $postParams)) {
 			// TODO
@@ -122,6 +121,7 @@ class PlaylistPresenter extends BasePresenter
 	}
 	
 	public function actionDefault($eventId) {
+		$this->ensureLoggedUser();
 		$this->eventId = $eventId;
 	}
 	

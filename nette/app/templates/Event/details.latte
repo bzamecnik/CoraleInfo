@@ -43,9 +43,11 @@
 		class="btn {(!$event->attendance_active) ? 'disabled' : 'btn-info'}">
 		<i class="icon-check {$event->attendance_active ? icon-white}"></i>&nbsp;Vyplnit účast
 	</a>
+{if $user->isLoggedIn()}
 	<a href="{link Playlist: eventId=>$event->id}" class="btn btn-info">
 		<i class="icon-list icon-white"></i>&nbsp;Playlist
 	</a>
+{/if}
 	<div class="pull-right">
 		{include deleteEventButton.latte}
 	</div>

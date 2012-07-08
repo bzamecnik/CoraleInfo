@@ -33,10 +33,10 @@ table.eventlist td.action {
 			<a href="{plink Event:edit $event->id}" class="btn" title="Upravit">
 				<i class="icon-pencil"></i>
 			</a>
-			{/if}
 			<a href="{plink Playlist: eventId=>$event->id}" class="btn" title="Playlist">
 				<i class="icon-list"></i>
 			</a>
+			{/if}
 			{if $event->attendance_active}
 			<a href="{plink Attendance:event $event->id}" class="btn" title="Účast">
 				<i class="icon-check"></i>
