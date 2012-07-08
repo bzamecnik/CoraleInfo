@@ -4,7 +4,7 @@
 		</li>
 {/define}
 
-{if $user->isLoggedIn()}
+{if ($user->isLoggedIn() && ($user->id == $memberId))}
 <div class="btn-group">
 	<button class="btn dropdown-toggle {$attendButtonStyles[$attendText]}" data-toggle="dropdown">
 		<i class="{($attend !== NULL) ? icon-white} {$attendIcons[$attendText]}">
