@@ -2,3 +2,5 @@ Thumbs.db
 *.log
 nette/temp/cache/
 nette/app/config/passwords-*.neon
+
+nette/log/exception*
