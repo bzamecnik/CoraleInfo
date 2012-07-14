@@ -26,6 +26,7 @@ class AttendanceButton extends UI\Control
 	}
 	
 	public function handleSetAttendance($eventId, $memberId, $attend = NULL) {
+		$this->presenter->ensureLoggedUser();
 		$values = array('attend' => $attend);
 		$key = array('event_id' => $eventId, 'member_id' => $memberId);
 		$attendance = $this->presenter->context->createAttendances()->where($key)->fetch();

@@ -33,7 +33,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		}
 	}
 	
-	protected function ensureLoggedUser()
+	public function ensureLoggedUser()
 	{
 		if (!$this->getUser()->isLoggedIn()) {
 			$backlink = $this->getApplication()->storeRequest();
