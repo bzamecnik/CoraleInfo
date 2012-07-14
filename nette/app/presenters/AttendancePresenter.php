@@ -213,7 +213,8 @@ EOQ;
 		if ($this->id) {
 			$query = $this->context->createAttendances()
 				->where(array('id' => $this->id));
-			if (!empty($values['attend']) || !empty($values['note'])) {
+			$shouldUpdate = $this->isNotEmpty($values['attend']) || $this->isNotEmpty($values['note']);
+			if ($shouldUpdate) {
 				$query->update($values);
 			} else {
 				$query->delete($values);
@@ -223,5 +224,13 @@ EOQ;
 		}
 		$this->flashMessage('Účast byla nastavena.', 'success');
 		$this->redirect('event', array('id' => $this->event->id));
+	}
+	
+	private function isEmpty($value) {
+		return ($value === NULL) || ($value === '');
+	}
+	
+	private function isNotEmpty($value) {
+		return !$this->isEmpty($value);
 	}
 }
