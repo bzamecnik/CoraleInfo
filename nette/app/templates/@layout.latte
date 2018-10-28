@@ -90,43 +90,34 @@
 <body>
 
 <div class="container">
-	
+
 {include 'navbar.latte'}
-	
+
 	<div class="row">
 		<div class="span10 offset1">
 			{block menu}{/block}
-			
+
 			{ifset $title}
 			<div class="page-header">
 				<h1>{$title}{if $titleSmall} <small>{$titleSmall}</small>{/if}</h1>
 			</div>
 			{/ifset}
-		
+
 			{snippet flashMessages}
 			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
 			{/snippet}
-			
+
 			{include #content}
 		</div>
 	</div>
-		
+
 	<hr>
-	
+
 	<footer>
 		<div style="text-align: center">
-			<p>Pro <a href="http://corale.cz/" title="corale.cz - hlavní stránky sboru Corale"
-			class="label">Corale</a> programuje a spravuje
-			<a href="mailto:bohumir.zamecnik [zavináč] corale.cz" class="label"
-			title="Dejte mi vědět, pokud si s něčím nevíte rady, něco nefunguje, nebo máte nápad, jak tu něco vylepšit.">
-			Bohumír Zámečník</a>	hrdě používaje <a href="http://nette.org/"
-			class="label"	title="Díky tomu se to dá programovat dost rychle a příjemně">
-			Nette</a>	<a href="http://twitter.github.com/bootstrap/" class="label"
-			title="Díky tomu je to tu tak hezoučké">Twitter Bootstrap</a>
-			<a href="http://wedos.net/" class="label"
-			title="Věděli jste, že tyto stránky běží ve starém protiatomovém krytu?">
-			WEDOS</a> za podpory <a href="http://fairos.cz/" class="label">FAIROS</a>.</p>
-			<p>Běží to tu už od 9. dubna 2012.<p>
+			<p><a href="http://corale.cz/" title="corale.cz - hlavní stránky sboru Corale"
+			class="label">Corale.cz</a></p>
+			<p>Běží to tu od 9. dubna 2012.<p>
 		</div>
 	</footer>
 
