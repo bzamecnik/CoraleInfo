@@ -1,4 +1,4 @@
-{var $title = "{$member->first_name} {$member->last_name}"}
+{var $title = $member_full_name}
 
 {block content}
 
@@ -7,7 +7,7 @@
 		<table class="table table-striped table-bordered table-condensed">
 			<tr>
 				<th><i class="icon-user"></i>&nbsp;Jméno</th>
-				<td>{$member->first_name} {$member->last_name}</td>
+				<td>{$member_full_name}</td>
 			</tr>
 			<tr>
 				<th><i class="icon-music"></i>&nbsp;Hlas</th>
@@ -56,5 +56,5 @@
 		<a n:href="Member:details id => $member->id + 1" class="btn">Další&nbsp;&rarr;</a>
 	</div>
 </div>
-		
+
 {/block}

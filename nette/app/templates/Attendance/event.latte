@@ -6,8 +6,8 @@
 	<div class="span5">
 
 		<h2>Událost</h2>
-		
-		<p> 
+
+		<p>
 			<a n:href="default" class="btn">
 				&larr;&nbsp;Seznam událostí s účastí
 			</a>
@@ -15,7 +15,7 @@
 				<i class="icon-search"></i>&nbsp;Detaily akce
 			</a>
 		</p>
-		
+
 		{* TODO: make a component *}
 		<table class="table table-striped table-bordered">
 			<tr>
@@ -41,7 +41,7 @@
 	<div class="span5">
 
 		<h2>Účast</h2>
-		
+
 		{control attendanceSummary, $event->id}
 
 	</div>
@@ -66,7 +66,7 @@
 	<tr><th colspan="5"><i class="icon-music"></i>&nbsp;<span class="badge badge-success">{_}{$voiceType}{/_}</a></th></tr>
 	{foreach $memberByVoice as $memberAtt}
 	<tr>
-		<td>{$memberAtt->first_name} {$memberAtt->last_name}</td>
+		<td>{$presenter->renderPublicMemberName($memberAtt)}</td>
 		<td>
 			{snippet attendanceButton-$event->id-$memberAtt->member_id}
 			{control attendanceButton, $event->id, $memberAtt->member_id, $memberAtt->attend}

@@ -36,7 +36,7 @@
 	<tr n:class="$iterator->isOdd() ? odd : even">
 		<th class="name">
 			<a n:href="Member:details $member->id" title="detaily">
-				{$member->first_name} {$member->last_name}
+				{$presenter->renderPublicMemberName($member)}
 			</a>
 		</th>
 		<td class="voice_type">{_}{$member->voice_type}{/_}</td>

@@ -12,7 +12,7 @@ class MemberPresenter extends BasePresenter
 	private $showActive = true;
 	/** @var boolean */
 	private $showGuest = false;
-	
+
 	public function actionList($active, $guest) {
 		$this->showActive = $active;
 		$this->showGuest = $guest;
@@ -26,12 +26,12 @@ class MemberPresenter extends BasePresenter
 			return;
 		}
 	}
-	
+
 	public function actionCreate()
 	{
 		$this->ensureLoggedUser();
 	}
-	
+
 	public function actionEdit($id)
 	{
 		$this->ensureLoggedUser();
@@ -42,7 +42,7 @@ class MemberPresenter extends BasePresenter
 		}
 		$this["memberForm"]->setDefaults($this->member);
 	}
-	
+
 //	public function actionDelete($id)
 //	{
 //		$this->ensureLoggedUser();
@@ -61,17 +61,17 @@ class MemberPresenter extends BasePresenter
 	{
 		$this->template->setTranslator(new MemberTranslator);
 	}
-	
+
 	public function renderDefault()
 	{
 		$this->getMemberList();
 	}
-	
+
 	public function renderList()
 	{
 		$this->getMemberList();
 	}
-	
+
 	private function getMemberList() {
 		$query = $this->context->createMembers();
 		if ($this->showActive !== NULL) {
@@ -85,30 +85,32 @@ class MemberPresenter extends BasePresenter
 
 		$this->template->list_title = $this->getListTitle($this->showActive, $this->showGuest);
 	}
-	
+
 	private function getListTitle($active, $guest) {
 		$title = "";
 		if ($active !== NULL) {
-			$title = $active ? 'Aktivní ' : 'Bývalí '; 
+			$title = $active ? 'Aktivní ' : 'Bývalí ';
 		} else {
 			$title = 'Všichni ';
 		}
 		if ($guest !== NULL) {
-			$title .= $guest ? 'hosté' : 'členové'; 
+			$title .= $guest ? 'hosté' : 'členové';
 		}
 		return trim($title);
 	}
-	
+
 	public function renderDetails()
 	{
-		$this->template->member = $this->context->createMembers()->get($this->id);
+		$member = $this->context->createMembers()->get($this->id);
+		$this->template->member = $member;
+		$this->template->member_full_name = $this->renderPublicMemberName($member);
 	}
-	
+
 	public function renderEdit()
 	{
 		$this->template->member = $this->context->createMembers()->get($this->id);
 	}
-	
+
 	protected function createComponentMemberForm()
 	{
 		$form = new Form();
@@ -126,10 +128,10 @@ class MemberPresenter extends BasePresenter
 		$form->addCheckbox('guest', 'Host')
 			->setDefaultValue(FALSE);
 		$form->addTextArea('description', 'Další informace');
-		
+
 		$form->addSubmit('save', $this->member ? 'Upravit' : 'Vytvořit');
 		$form->onSuccess[] = callback($this, 'processMemberForm');
-		
+
 		$presenter = $this;
 		$form->addSubmit('cancel', 'Zrušit')
 			->setValidationScope(FALSE)
@@ -139,7 +141,7 @@ class MemberPresenter extends BasePresenter
 			};
 		return $form;
 	}
-	
+
 	public function processMemberForm(Form $form)
 	{
 		$this->ensureLoggedUser();
@@ -176,7 +178,7 @@ class MemberTranslator implements Nette\Localization\ITranslator
 		'other' => 'ostatní',
 		);
 	private $messages;
-	
+
 	public function __construct() {
 		$this->messages = self::$voice_types;
 	}
